@@ -1,0 +1,54 @@
+{
+	"flag6": [
+		{
+			"id":1,
+			"cookie": "COOKIE_VALUE1",
+			"value": "123456"
+		},
+		{
+                        "id":2,
+			"cookie": "COOKIE_VALUE2",
+                        "value": "123456"
+                },
+		{
+                        "id":3,
+			"cookie": "COOKIE_VALUE3",
+                        "value": "123456"
+                },
+		{
+                        "id":4,
+			"cookie": "COOKIE_VALUE4",
+                        "value": "123456"
+                },
+		{
+                        "id":5,
+			"cookie": "COOKIE_VALUE5",
+                        "value": "123456"
+                },
+		{
+                        "id":6,
+			"cookie": "COOKIE_VALUE6",
+                        "value": "123456"
+                },
+		{
+                        "id":7,
+			"cookie": "COOKIE_VALUE7",
+                        "value": "123456"
+                },
+		{
+                        "id":8,
+			"cookie": "COOKIE_VALUE8",
+                        "value": "123456"
+                },
+		{
+                        "id":9,
+			"cookie": "COOKIE_VALUE9",
+                        "value": "123456"
+                },
+		{
+                        "id":10,
+			"cookie": "COOKIE_VALUE10",
+                        "value": "123456"
+                }
+	]
+}
