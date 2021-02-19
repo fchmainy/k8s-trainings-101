@@ -64,6 +64,8 @@ make sure your append a correct tag and version at the end of the build and push
 
 Verify the v1 of the webapp container image is on your registry.
 
+We have prepared a model for the kubernetes manifest in order to help you create the service and the deployment. Please modify so it matches your requirements.
+
 Now you can deploy this application in your kubernetes cluster
 
 <pre>
@@ -73,7 +75,8 @@ kubectl apply -f v1_webapp_k8s_manifest.yaml -n <b>frontns</b>
 </pre>
 
 
-> :warning: **Don't forget to go check on [CTFD](http://ctfd.f5demolabs.org) if there are any challenges and questions for this section
+
+> :warning: Don't forget to go check on [CTFD](http://ctfd.f5demolabs.org) if there are any challenges and questions for this section
 
 ### Useful commands
 
@@ -91,9 +94,51 @@ kubectl apply
 
 ## Lab2 - Make application accessible from outside
 ### Description:
+	- Look into your app
 	- Expose your application
 	- Find the instructor container registry Deploy Token Username and Password
 	- Deploy the ingress controller and create the Ingress Resource
+
+
+### Tasks
+Understand how your application works:
+
+<pre>
+❯ kubectl get svc -n testns -l tier=front -l version=v1
+NAME     TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)   AGE
+webapp   ClusterIP   <span style="color:green"><b>10.1.120.33</b></span>   <none>        80/TCP    11m
+
+
+❯ kubectl describe svc webapp -n testns
+Name:              webapp
+Namespace:         testns
+Labels:            tier=front
+                   version=v1
+Annotations:       <none>
+Selector:          app=webapp,version=v1
+Type:              ClusterIP
+IP:                <span style="color:green"><b>10.1.120.33</b></span>
+Port:              <unset>  <b>80/TCP</b>
+TargetPort:        <b>80/TCP</b>
+Endpoints:         <span style="color:blue"><b>10.1.96.49:80</b></span>
+Session Affinity:  None
+Events:            <none>
+
+
+❯ kubectl get ep -n testns
+NAME     ENDPOINTS       AGE
+webapp   <span style="color:blue"><b>10.1.96.49:80</b></span>   13m
+
+❯ kubectl get pods -n testns -o wide
+NAME                      READY   STATUS    RESTARTS   AGE   IP           NODE                                NOMINATED NODE   READINESS GATES
+webapp-7dd5ff6788-t8xdt   1/1     Running   0          11m  <span style="color:blue"><b> 10.1.96.49</b></span>   aks-agentpool-17587948-vmss000000   <none>           <none>
+</pre>
+
+
+There are many ways to make your application from the outside, first and foremost the **port-forward** which is mostly used for troubleshooting as it is not permanent.
+
+
+
 
 **Useful commands**:
 '''
