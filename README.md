@@ -18,12 +18,12 @@ For every lab you will find a series of questions that will give you coins. You 
 	Understanding the main components of a K8S Clutser, node types, basic networking, meaning and relationship between Services, Endpoints and Pods.
 
 >**Useful commands**:
->kubectl cluster-info
->kubectl get nodes
->kubectl get namespaces
->kubectl get service -n *namespace*
->kubectl get endpoints -n *namespace*
->kubectl get pods -n *namespace*
+>	kubectl cluster-info
+>	kubectl get nodes
+>	kubectl get namespaces
+>	kubectl get service -n *namespace*
+>	kubectl get endpoints -n *namespace*
+>	kubectl get pods -n *namespace*
 
 
 
