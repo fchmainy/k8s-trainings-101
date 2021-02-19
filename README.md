@@ -134,6 +134,7 @@ NAME                      READY   STATUS    RESTARTS   AGE   IP           NODE  
 webapp-7dd5ff6788-t8xdt   1/1     Running   0          11m  <span style="color:blue"><b> 10.1.96.49</b></span>   vmss000000   <none>           <none>
 </pre>
 
+![svc-ep-pods](doc/svc_ep_pods_webapp_v1.png)
 
 There are many ways to make your application from the outside, first and foremost the **port-forward** which is mostly used for troubleshooting as it is not permanent.
 
