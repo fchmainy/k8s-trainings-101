@@ -147,14 +147,14 @@ bash-5.0# curl webapp.testns -v
 * Connected to <b>webapp.testns</b> (<b>10.1.120.33) port 80</b> (#0)
 </pre>
 
-There are many ways to make your application from the outside, first and foremost the **port-forward** which is mostly used for troubleshooting as it is not permanent.
+There are many ways to make your application accessible from the outside, first and foremost the **port-forward** which is mostly used for troubleshooting as it is not permanent.
 Port Forwarding can be applied on the service, deployment, pods... it really depends what you want to debug:
 
 <pre>
 <b>kubectl port-forward deployment/webapp 5000:80 -n frontns</b>
 Forwarding from 127.0.0.1:5000 -> 80
 Forwarding from [::1]:5000 -> 80
-
+</pre>
 
 Handling connection for 5000
 
