@@ -45,9 +45,9 @@ When you are done:
 Gitlab is giving you the commands to make docker logged in into your registry along with the 2 needed commands to build and push your container image into your registry.
 
 ```Shell
-docker login registry.gitlab.com
-docker build -t registry.gitlab.com/f.chmainy/mygitrepo**/webapp:v1** .
-docker push registry.gitlab.com/f.chmainy/mygitrepo**/webapp:v1**
+`docker login `*`registry.gitlab.com`*``
+`docker build -t registry.gitlab.com/f.chmainy/mygitrepo`**`/webapp:v1`**` .`
+`docker push registry.gitlab.com/f.chmainy/mygitrepo`**`/webapp:v1`**``
 ```
 
 ```Python
