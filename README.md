@@ -42,26 +42,37 @@ When you are done:
  - create a new project
  - create a new Deployment token Username and Password (Settings > Repository > Deploy Tokens)
  - Go to container registry (Package & Registry > Container Registry)
-Gitlab is giving you the commands to make docker logged in into your registry along with the 2 needed commands to build and push your container image into your registry.
-
-```Shell
-`docker login `*`registry.gitlab.com`*``
-`docker build -t registry.gitlab.com/f.chmainy/mygitrepo`**`/webapp:v1`**` .`
-`docker push registry.gitlab.com/f.chmainy/mygitrepo`**`/webapp:v1`**``
-```
+Gitlab is giving you the commands to make docker logged in into your registry along with the 2 needed commands to build and push your container image into your registry. We will use them very soon
 
 <pre>
 docker login <i>registry.gitlab.com</i>
-docker build -t registry.gitlab.com<i>/f.chmainy/mygitrepo</i><b>/webapp:v1</b> .
-docker push registry.gitlab.com<i>/f.chmainy/mygitrepo</i><b>/webapp:v1</b>
 </pre>
  
 make sure your append a correct tag and version at the end of the build and push commands.
 
+Now, let's download the application code:
+
+<pre>
 git clone https://github.com/fchmainy/k8s-trainings-101.git
-cd k8s-trainings-101
+cd k8s-trainings-101/v1/
+docker build -t registry.gitlab.com<i>/f.chmainy/mygitrepo</i><b>/webapp:v1</b> .
+docker push registry.gitlab.com<i>/f.chmainy/mygitrepo</i><b>/webapp:v1</b>
+</pre>
+
+make sure your append a correct tag and version at the end of the build and push commands Gitlab gave you previously.
+
+Verify the v1 of the webapp container image is on your registry.
+
+Now you can deploy this application in your kubernetes cluster
+
+<pre>
+kubectl create ns <b>frontns</b>
+kubectl create secret docker-registry <b>regcred</b> --docker-server=<i>registry.gitlab.com</i> --docker-username=<i>your@email.addr</i> --docker-password=<i>yourpassword</i> -n <b>frontns</b>
+kubectl apply -f v1_webapp_k8s_manifest.yaml -n <b>frontns</b>
+</pre>
 
 
+> :warning: **Don't forget to go check on [CTFD](http://ctfd.f5demolabs.org) if there are any challenges and questions for this section
 
 > **Useful commands**:
 >
