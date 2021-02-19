@@ -77,13 +77,14 @@ kubectl apply -f v1_webapp_k8s_manifest.yaml -n <b>frontns</b>
 
 ### Useful commands
 
-> docker login
-> docker build
-> docker push
-> kubectl create ns
-> kubectl create secret
-> kubectl apply
-
+<pre>
+docker login
+docker build
+docker push
+kubectl create ns
+kubectl create secret
+kubectl apply
+</pre>
 
 ---
 
