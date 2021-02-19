@@ -106,7 +106,7 @@ Understand how your application works:
 <pre>
 ❯ kubectl get svc -n testns -l tier=front -l version=v1
 NAME     TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)   AGE
-webapp   ClusterIP   <span style="color:green"><b>10.1.120.33</b></span>   <none>        80/TCP    11m
+webapp   ClusterIP   <span style="color:green"><b>10.1.120.33</b></span>   none        80/TCP    11m
 
 
 ❯ kubectl describe svc webapp -n testns
@@ -131,7 +131,7 @@ webapp   <span style="color:blue"><b>10.1.96.49:80</b></span>   13m
 
 ❯ kubectl get pods -n testns -o wide
 NAME                      READY   STATUS    RESTARTS   AGE   IP           NODE                                NOMINATED NODE   READINESS GATES
-webapp-7dd5ff6788-t8xdt   1/1     Running   0          11m  <span style="color:blue"><b> 10.1.96.49</b></span>   aks-agentpool-17587948-vmss000000   <none>           <none>
+webapp-7dd5ff6788-t8xdt   1/1     Running   0          11m  <span style="color:blue"><b> 10.1.96.49</b></span>   vmss000000   <none>           <none>
 </pre>
 
 
