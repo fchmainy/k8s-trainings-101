@@ -160,7 +160,7 @@ Handling connection for 5000
 
 > Open a web browser on : curl -v http://127.0.0.1:5000
 You should access the webapp (v1) web page:
-![v1-webapp](v1/v1_icon.png)
+![v1-webapp](v1/v1_icon.png =100x100)
 
 Using the instructor private registry deployment token username and password, you should create a new namespace, create a docker-registry secret and deploy into it the following container image:
 <pre>
