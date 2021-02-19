@@ -50,9 +50,11 @@ Gitlab is giving you the commands to make docker logged in into your registry al
 `docker push registry.gitlab.com/f.chmainy/mygitrepo`**`/webapp:v1`**``
 ```
 
-> `docker login `*`registry.gitlab.com`*``
-> `docker build -t registry.gitlab.com/f.chmainy/mygitrepo`**`/webapp:v1`**` .`
-> `docker push registry.gitlab.com/f.chmainy/mygitrepo`**`/webapp:v1`**``
+<pre>
+docker login <i>registry.gitlab.com</i>
+docker build -t registry.gitlab.com<i>/f.chmainy/mygitrepo</i><b>/webapp:v1</b> .
+docker push registry.gitlab.com<i>/f.chmainy/mygitrepo</i><b>/webapp:v1</b>
+</pre>
  
 make sure your append a correct tag and version at the end of the build and push commands.
 
