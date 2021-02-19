@@ -4,7 +4,7 @@ This is a series of exercices and hands on in order to get into Kubernetes and s
 
 ## Capture the Flag
 Of course, if there is a challenge, there will be a winner (I did not mention anything about a price though)!
-Please go create a user account on http://ctfd.f5demolabs.org and start playing.
+Please go create a user account on [Capture the K8S Flag](http://ctfd.f5demolabs.org) and start playing.
 
 But we will never leave you alone:
 	- cheat-sheet:
@@ -12,6 +12,7 @@ But we will never leave you alone:
 
 For every lab you will find a series of questions that will give you coins. You can ask for hints in exchange of some coins.
 
+---
 
 ## Lab0 - Getting familiar with your K8S Cluster
 ### Description
@@ -25,7 +26,7 @@ For every lab you will find a series of questions that will give you coins. You 
 >	kubectl get endpoints -n *namespace*
 >	kubectl get pods -n *namespace*
 
-
+---
 
 ## Lab1 - Build and deploy your first application
 ### Description
@@ -34,11 +35,12 @@ For every lab you will find a series of questions that will give you coins. You 
 	- to git, I git, git
 	- deploy your application
 
-**Useful commands**:
-``
-kubectl create secret docker-registry regcred --docker-server=<registry.gitlab.com> --docker-username=<your@email.addr> --docker-password=<yourpassword> -n <namespace>
+> **Useful commands**:
+>
+>kubectl create secret docker-registry regcred --docker-server=<registry.gitlab.com> --docker-username=<your@email.addr> --docker-password=<yourpassword> -n <namespace>
+>
 
-``
+---
 
 
 ## Lab2 - Make application accessible from outside
