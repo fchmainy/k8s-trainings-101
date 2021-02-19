@@ -75,13 +75,15 @@ kubectl apply -f v1_webapp_k8s_manifest.yaml -n <b>frontns</b>
 
 > :warning: **Don't forget to go check on [CTFD](http://ctfd.f5demolabs.org) if there are any challenges and questions for this section
 
-> **Useful commands**:
+### Useful commands
+
 > docker login
 > docker build
 > docker push
 > kubectl create ns
 > kubectl create secret
 > kubectl apply
+
 
 ---
 
