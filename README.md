@@ -49,6 +49,13 @@ docker login registry.gitlab.com
 docker build -t registry.gitlab.com/f.chmainy/mygitrepo**/webapp:v1** .
 docker push registry.gitlab.com/f.chmainy/mygitrepo**/webapp:v1**
 ```
+
+```Python
+x = 1
+if x == 1:
+    # retrait de quatre espaces
+    print("x vaut 1.")
+```
  
 make sure your append a correct tag and version at the end of the build and push commands.
 
