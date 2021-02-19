@@ -136,17 +136,49 @@ webapp-7dd5ff6788-t8xdt   1/1     Running   0          11m  <span style="color:b
 
 ![svc-ep-pods](doc/svc-ep-pods_webapp_v1.png)
 
+You can check how it works by running a debug networking pod (praqma/multitool)
+<pre>
+kubectl create ns <i>debug</i>
+kubectl run multitool --image=praqma/network-multitool -n <i>debug</i>
+kubectl exec -it multitool -n <i>debug</i> -- bash
+
+bash-5.0# curl webapp.testns -v
+*   Trying <b>10.1.120.33:80</b>...
+* Connected to <b>webapp.testns</b> (<b>10.1.120.33) port 80</b> (#0)
+</pre>
+
 There are many ways to make your application from the outside, first and foremost the **port-forward** which is mostly used for troubleshooting as it is not permanent.
+Port Forwarding can be applied on the service, deployment, pods... it really depends what you want to debug:
+
+<pre>
+<b>kubectl port-forward deployment/webapp 5000:80 -n frontns</b>
+Forwarding from 127.0.0.1:5000 -> 80
+Forwarding from [::1]:5000 -> 80
+
+
+Handling connection for 5000
+
+> Open a web browser on : curl -v http://127.0.0.1:5000
+You should access the webapp (v1) web page:
+![v1-webapp](v1/v1_icon.png)
+
+Using the instructor private registry deployment token username and password, you should create a new namespace, create a docker-registry secret and deploy into it the following container image:
+<pre>
+	<b>registry.gitlab.com/f.chmainy/nginx:v1.10.0</b>
+</pre>
 
 
 
+> :warning: Don't forget to go check on [CTFD](http://ctfd.f5demolabs.org) if there are any challenges and questions for this section
 
-**Useful commands**:
-'''
-kubectl port-forward deployment/webapp 5000:80
-kubectl port-forward pods/webapp-867RY3R36R36 5000:80
-kubectl port-forward service/webapp-svc 5000:webapp
-'''
+### Useful commands
+
+<pre>
+kubectl port-forward -n frontns deployment/webapp 5000:80
+kubectl port-forward -n frontns pods/webapp-7dd5ff6788-t8xdt 5000:80
+kubectl port-forward -n frontnsns service/webapp 5000:80
+</pre>
+
 
 ## Lab3 - Manage versioning of your application with Ingress
 ### Description
