@@ -37,6 +37,7 @@ For every lab you will find a series of questions that will give you coins. You 
 	- to git, I git, git
 	- deploy your application
 
+### Tasks
 if you don't have a gitlab.com (free) account, please create one. We will use it as a Source Code Management but mostly here as a private container registry.
 When you are done:
  - create a new project
@@ -75,9 +76,12 @@ kubectl apply -f v1_webapp_k8s_manifest.yaml -n <b>frontns</b>
 > :warning: **Don't forget to go check on [CTFD](http://ctfd.f5demolabs.org) if there are any challenges and questions for this section
 
 > **Useful commands**:
->
->kubectl create secret docker-registry regcred --docker-server=<registry.gitlab.com> --docker-username=<your@email.addr> --docker-password=<yourpassword> -n <namespace>
->
+> docker login
+> docker build
+> docker push
+> kubectl create ns
+> kubectl create secret
+> kubectl apply
 
 ---
 
