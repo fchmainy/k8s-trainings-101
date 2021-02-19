@@ -37,6 +37,23 @@ For every lab you will find a series of questions that will give you coins. You 
 	- to git, I git, git
 	- deploy your application
 
+if you don't have a gitlab.com (free) account, please create one. We will use it as a Source Code Management but mostly here as a private container registry.
+When you are done:
+ - create a new project
+ - create a new Deployment token Username and Password (Settings > Repository > Deploy Tokens)
+ - Go to container registry (Package & Registry > Container Registry)
+Gitlab is giving you the commands to make docker logged in into your registry along with the 2 needed commands to build and push your container image into your registry.
+    docker login registry.gitlab.com
+    docker build -t registry.gitlab.com/f.chmainy/mygitrepo**/webapp:v1** .
+    docker push registry.gitlab.com/f.chmainy/mygitrepo**/webapp:v1**
+ 
+make sure your append a correct tag and version at the end of the build and push commands.
+
+git clone https://github.com/fchmainy/k8s-trainings-101.git
+cd k8s-trainings-101
+
+
+
 > **Useful commands**:
 >
 >kubectl create secret docker-registry regcred --docker-server=<registry.gitlab.com> --docker-username=<your@email.addr> --docker-password=<yourpassword> -n <namespace>
