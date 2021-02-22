@@ -4,6 +4,7 @@ kind: Service
 metadata:
   name: webapp
   labels:
+    application: k8s101
     version: v1
     tier: front
 spec:
@@ -20,6 +21,7 @@ kind: Deployment
 metadata:
   name: webapp
   labels:
+    application: k8s101
     version: v1
     tier: front
 spec:
@@ -41,4 +43,4 @@ spec:
         ports:
         - containerPort: 80
       imagePullSecrets:
-        - name: regcred
+        - name: myregcred

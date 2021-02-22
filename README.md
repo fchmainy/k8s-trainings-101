@@ -104,14 +104,14 @@ kubectl apply
 Understand how your application works:
 
 <pre>
-❯ kubectl get svc -n testns -l tier=front -l version=v1
+❯ kubectl get svc -n frontns -l tier=front -l version=v1
 NAME     TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)   AGE
 webapp   ClusterIP   <span style="color:green"><b>10.1.120.33</b></span>   none        80/TCP    11m
 
 
-❯ kubectl describe svc webapp -n testns
+❯ kubectl describe svc webapp -n frontns
 Name:              webapp
-Namespace:         testns
+Namespace:         frontns
 Labels:            tier=front
                    version=v1
 Annotations:       <none>
@@ -125,11 +125,11 @@ Session Affinity:  None
 Events:            <none>
 
 
-❯ kubectl get ep -n testns
+❯ kubectl get ep -n frontns
 NAME     ENDPOINTS       AGE
 webapp   <span style="color:blue"><b>10.1.96.49:80</b></span>   13m
 
-❯ kubectl get pods -n testns -o wide
+❯ kubectl get pods -n frontns -o wide
 NAME                      READY   STATUS    RESTARTS   AGE   IP           NODE                                NOMINATED NODE   READINESS GATES
 webapp-7dd5ff6788-t8xdt   1/1     Running   0          11m  <span style="color:blue"><b> 10.1.96.49</b></span>   vmss000000   <none>           <none>
 </pre>
@@ -142,9 +142,9 @@ kubectl create ns <i>debug</i>
 kubectl run multitool --image=praqma/network-multitool -n <i>debug</i>
 kubectl exec -it multitool -n <i>debug</i> -- bash
 
-bash-5.0# curl webapp.testns -v
+bash-5.0# curl webapp.frontns -v
 *   Trying <b>10.1.120.33:80</b>...
-* Connected to <b>webapp.testns</b> (<b>10.1.120.33) port 80</b> (#0)
+* Connected to <b>webapp.frontns</b> (<b>10.1.120.33) port 80</b> (#0)
 </pre>
 
 There are many ways to make your application accessible from the outside, first and foremost the **port-forward** which is mostly used for troubleshooting as it is not permanent.
@@ -189,6 +189,44 @@ kubectl port-forward -n frontnsns service/webapp 5000:80
 ### Description
 	- Deploy the version 2 (v2) of the web application
 	- Deployment Strategies (Canary Realease, A/B Testing...)
+
+
+<pre>
+>kubectl apply -f v2_webapp_k8s_manifest.yaml -n frontns
+service/webappi-v2-svc configured
+deployment.apps/webapp-v2-dep configured
+</pre>
+
+<pre>
+>kubectl port-forward deployment/webapp-v2-dep 5000:8080 -n frontns
+Forwarding from 127.0.0.1:5000 -> 8080
+Forwarding from [::1]:5000 -> 8080
+</pre>
+
+<pre>
+>kubectl get svc --all-namespaces -l application=k8s101,version=v2,tier=front
+NAMESPACE   NAME             TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
+frontns     webappi-v2-svc   ClusterIP   10.110.131.55   <none>        80/TCP    56m
+
+>kubectl get svc --all-namespaces -l application=k8s101,version=v1,tier=front
+NAMESPACE   NAME     TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)   AGE
+frontns     webapp   ClusterIP   10.103.125.244   <none>        80/TCP    53m
+</pre>
+
+
+
+<pre>
+>kubectl get svc --all-namespaces -l application=k8s101
+NAMESPACE   NAME             TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)   AGE
+backendns   webapp-back-v1   ClusterIP   10.99.200.155    <none>        80/TCP    6s
+frontns     webapp           ClusterIP   10.103.125.244   <none>        80/TCP    69m
+frontns     webappi-v2-svc   ClusterIP   10.110.131.55    <none>        80/TCP    71m
+
+>kubectl get svc --all-namespaces -l application=k8s101,version=v2,tier=back
+NAMESPACE   NAME             TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
+backendns   webapp-back-v1   ClusterIP   10.99.200.155   <none>        80/TCP    96s
+</pre>
+
 	
 You have multiple example you can inspire from at: https://github.com/nginxinc/kubernetes-ingress/tree/master/examples-of-custom-resources
 
