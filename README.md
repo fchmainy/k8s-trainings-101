@@ -265,7 +265,7 @@ spec:
         upstream: v1
 </pre>
 
-you can now access your v1 application using your web browser at http://www.mycompany.com
+you can now access your v1 application using your web browser at http://www.mycompany.com:30274
 
 
 ### Build and deploy the version 2 of your application
@@ -285,11 +285,8 @@ service/webappi-v2-svc configured
 deployment.apps/webapp-v2-dep configured
 </pre>
 
-<pre>
-<b>kubectl port-forward deployment/webapp-v2-dep 5000:8080 -n frontns</b>
-Forwarding from 127.0.0.1:5000 -> 8080
-Forwarding from [::1]:5000 -> 8080
-</pre>
+
+Note: In a large scale cluster, you probably won't have a clear mapping of services names, deployments, endpoints and pods, this is why labels could be very useful:
 
 <pre>
 <b>kubectl get svc --all-namespaces -l application=k8s101,version=v1,tier=front</b>
@@ -301,6 +298,77 @@ NAMESPACE   NAME             TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)  
 frontns     webappi-v2-svc   ClusterIP   10.110.131.55   <none>        80/TCP    56m
 </pre>
 
+
+There are multiple strategies to choose when releasing a new application version:
+- A/B Testing
+- Canary Testing
+- Blue/Green
+
+It comes down to what do you want to achieve, who/what is testing the application?...
+
+#### A/B Testing
+Here, we want to split part of the traffic (%) to the new version so we can validate and measure the proper functioning of the new version without impacting too many customers if there were any issue in the code.
+Here we are doing a 80% to v1 and 20% to v2, in real life the cursor would be progressively moving out to v2 until final approval.
+
+[link to documentation](https://docs.nginx.com/nginx-ingress-controller/configuration/virtualserver-and-virtualserverroute-resources/#split)
+
+<pre>
+apiVersion: k8s.nginx.org/v1
+kind: VirtualServer
+metadata:
+  name: k8s101ingress
+spec:
+  ingressClassName: ingressclass1
+  host: www.mycompany.com
+  upstreams:
+  - name: v1
+    service: webapp
+    port: 80
+  - name: v2
+    service: webapp-v2-svc
+    port: 80
+  routes:
+  - path: /
+    splits:
+    - weight: <b>80</b>
+      action:
+        pass: v1
+    - weight: <b>20</b>
+      action:
+        pass: v2
+</pre>
+
+#### Canary testing
+In this scenario, we are directing traffic to the new version only for specific key users (devs, test users...) by steering only if a specific header or cookie is provided.
+
+[link to documentation](https://docs.nginx.com/nginx-ingress-controller/configuration/virtualserver-and-virtualserverroute-resources/#match)
+
+<pre>
+apiVersion: k8s.nginx.org/v1
+kind: VirtualServer
+metadata:
+  name: k8s101ingress
+spec:
+  ingressClassName: ingressclass1
+  host: www.mycompany.com
+  upstreams:
+  - name: v1
+    service: webapp
+    port: 80
+  - name: v2
+    service: webapp-v2-svc
+    port: 80
+  routes:
+  - path: /
+    matches:
+    - conditions:
+      - cookie: <b>flag6</b>
+        value: <b>COOKIE_VALUE6</b>
+      action:
+        pass: v2
+    action:
+      pass: v1
+</pre>
 
 
 <pre>
