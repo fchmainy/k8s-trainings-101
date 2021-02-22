@@ -1,0 +1,24 @@
+apiVersion: k8s.nginx.org/v1 
+kind: VirtualServer
+metadata:
+  name: k8s101ingress
+spec:
+  ingressClassName: ingressclass1
+  host: www.mycompany.com
+  upstreams:
+  - name: v1
+    service: webapp
+    port: 80
+  - name: v2
+    service: webapp-v2-svc
+    port: 80
+  routes:
+  - path: /
+    matches:
+    - conditions:
+      - cookie: flag6
+        value: COOKIE_VALUE6
+      action:
+        pass: v2
+    action:
+      pass: v1
