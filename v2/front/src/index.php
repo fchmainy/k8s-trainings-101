@@ -95,12 +95,6 @@ div.check {
 
 <br><hr><br>
 
-<div class="info">
-	<p><span>Server&nbsp;address:</span> <span>server_address</span></p>
-	<p><span>Server&nbsp;name:</span> <span>server_hostname</span></p>
-	<p class="smaller"><span>Date:</span> <span>server_date</span></p>
-	<p class="smaller"><span>URI:</span> <span>server_url</span></p>
-</div>
 
 <!--div class="check"><input type="checkbox" id="check" onchange="changeCookie()"> Auto Refresh</div-->
 <div class="check"><input type="checkbox" id="check" onchange="start()"> Auto Refresh</div>
