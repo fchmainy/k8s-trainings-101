@@ -285,6 +285,9 @@ service/webappi-v2-svc configured
 deployment.apps/webapp-v2-dep configured
 </pre>
 
+<p align="center">
+        <img width="100" src="v2/v2_icon.png" alt="V2 logo">
+</p>
 
 Note: In a large scale cluster, you probably won't have a clear mapping of services names, deployments, endpoints and pods, this is why labels could be very useful:
 
