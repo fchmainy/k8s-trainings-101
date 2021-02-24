@@ -34,14 +34,14 @@ For every lab you will find a series of questions that will give you coins. You 
 ### Description
 	- what is Container and why container registries are important?
 	- managing secrets
-	- to git, I git, git
+	- basic git commands
 	- deploy your application
 
 ### Tasks
 if you don't have a gitlab.com (free) account, please create one. We will use it as a Source Code Management but mostly here as a private container registry.
 When you are done:
  - create a new project
- - create a new Deployment token Username and Password (Settings > Repository > Deploy Tokens)
+ - create a new Deployment token Username and Password (Settings > Repository > Deploy Tokens). Keep them safetly, we will use them in the whole labs.
  - Go to container registry (Package & Registry > Container Registry)
 Gitlab is giving you the commands to make docker logged in into your registry along with the 2 needed commands to build and push your container image into your registry. We will use them very soon
 
@@ -66,14 +66,11 @@ Verify the v1 of the webapp container image is on your registry.
 
 We have prepared a model for the kubernetes manifest in order to help you create the service and the deployment. Please modify so it matches your requirements.
 
-Now you can deploy this application in your kubernetes cluster
-
-<pre>
-kubectl create ns <b>frontns</b>
-kubectl create secret docker-registry <b>regcred</b> --docker-server=<i>registry.gitlab.com</i> --docker-username=<i>yourDeployTokenUsername</i> --docker-password=<i>yourDeployTokenPassword</i> -n <b>frontns</b>
-kubectl apply -f v1_webapp_k8s_manifest.yaml -n <b>frontns</b>
-</pre>
-
+Now you can deploy this application in your kubernetes cluster (check the following challenges in ctfd):
+**TASKS:** (check corresponding flags on CTFD):
+-  create a namespace called **frontns**
+- create a docker-registry kubernetes secret on registry.gitlab.com using your deploy tokens.
+- deploy the v1_webapp_k8s_manifest.yaml in your **frontns** namespace (verify the manifest file content so it matches your ecosystem).
 
 
 > :warning: Don't forget to go check on [CTFD](http://ctfd.f5demolabs.org) if there are any challenges and questions for this section
@@ -150,23 +147,20 @@ bash-5.0# curl webapp.frontns -v
 There are many ways to make your application accessible from the outside, first and foremost the **port-forward** which is mostly used for troubleshooting as it is not permanent.
 Port Forwarding can be applied on the service, deployment, pods... it really depends what you want to debug:
 
-<pre>
-<b>kubectl port-forward deployment/webapp 5000:80 -n frontns</b>
-Forwarding from 127.0.0.1:5000 -> 80
-Forwarding from [::1]:5000 -> 80
-</pre>
+**TASKS:** (check corresponding flags on CTFD):
+- create a port-forward to your **webapp deployment** redirecting TCP port 5000 to TCP/80.
+- curl http://127.0.0.1:5000
 
-Handling connection for 5000
-
-> Open a web browser on : curl -v http://127.0.0.1:5000
 You should access the webapp (v1) web page:
 
 <p align="center">
 	<img width="100" src="v1/v1_icon.png" alt="V1 logo">
 </p>
-Note:
-You can also expose your application using the expose service object and access your application via a NodePort. This is a permanent change (until you explicitly remove it) so we won't use it here as we prefer using an Ingress service. Expose is presented here: https://kubernetes.io/docs/tutorials/stateless-application/expose-external-ip-address/
 
+Note:
+<i>You can also expose your application using the expose service object and access your application via a NodePort. This is a permanent change (until you explicitly remove it) so we won't use it here as we prefer using an Ingress service. Expose is presented here: https://kubernetes.io/docs/tutorials/stateless-application/expose-external-ip-address/</i>
+
+**TASKS** (check corresponding flags on CTFD):
 Using the instructor private registry deployment token username and password, you should create a new namespace called **"ingress"**, create a docker-registry secret and deploy into the ingress namespace the following container image:
 <pre>
 	<b>registry.gitlab.com/f.chmainy/nginx:v1.10.0</b>
@@ -181,9 +175,9 @@ You can inspire from the example on the official [NGINX INC Github Repository](h
 ### Useful commands
 
 <pre>
-kubectl port-forward -n frontns deployment/webapp 5000:80
-kubectl port-forward -n frontns pods/webapp-7dd5ff6788-t8xdt 5000:80
-kubectl port-forward -n frontnsns service/webapp 5000:80
+kubectl port-forward 
+kubectl port-forward
+kubectl port-forward
 </pre>
 
 
@@ -221,11 +215,10 @@ nginx-stable    https://helm.nginx.com/stable
 
 The Ingress Controller can be deployed in any namespace disctinct from the application services. The Ingress Resources are however deployed in the app services namespaces.
 
+**TASKS** (check corresponding flags on CTFD):
+- create a namespace called **ingress**
+- create a docker-registry secret in the **ingress** namespace using the instructor deploy username/password tokens.
 
-<pre>
-<b>kubectl create ns ingress</b>
-<b><kubectl create secret docker-registry <b>regcred</b> --docker-server=<i>registry.gitlab.com</i> --docker-username=<i>your@email.addr</i> --docker-password=<i>yourpassword</i> -n ingress</b>
-</pre>
 
 Now, we are going to deploy the NGINX Plus Ingress and all of the required components in a single command:
 <pre>
@@ -268,6 +261,8 @@ spec:
 </pre>
 
 you can now access your v1 application using your web browser at http://www.mycompany.com:30274
+Note:
+<i>if you are using the UDF blueprint, the www.company.com fqdn should already be registered in the jumpHost hosts file.</i>
 
 
 ### Build and deploy the version 2 of your application
@@ -275,6 +270,7 @@ you can now access your v1 application using your web browser at http://www.myco
 First, build and push the v2 front container image into your private container image registry.
 <pre>
 <b>
+cd ../v2
 docker build -t registry.gitlab.com/f.chmainy/toremove/webapp:v2 .
 docker push registry.gitlab.com/f.chmainy/toremove/webapp:v2
 </b>
@@ -380,16 +376,16 @@ spec:
       pass: v1
 </pre>
 
+Using chrome and go to the Developer tools / Console, you can inject the required cookie:
+<pre>
+document.cookie="flag6=COOKIE_VALUE6; expires=Mon, 2 Aug 2021 20:20:20 UTC; path=/";
+</pre>
 
 Now we can redirect the whole Ingress traffic to the v2 frontend, remove the v1 webapp Ingress rules and remove the application.
 
+Note:
+You have multiple example you can inspire for advanced routing from at: https://github.com/nginxinc/kubernetes-ingress/tree/master/examples-of-custom-resources
 
-	
-You have multiple example you can inspire from at: https://github.com/nginxinc/kubernetes-ingress/tree/master/examples-of-custom-resources
-
-**Useful commands**:
-'''
-'''
 
 ## Lab4 - East-West or Microservice-to-Microservice traffic
 ### Description
@@ -397,13 +393,12 @@ You have multiple example you can inspire from at: https://github.com/nginxinc/k
 	- access your application and capture the flag!!!
 
 ### Deploy the backend service
-The backend is an API service that delivers an UUID based on a cookie provided by the frontend.
+The backend is a very basic JSON RESTFUL API service that delivers an UUID based on a cookie provided by the frontend.
 
-create a new namespace called <b>backendns</b> where the backend pod will reside.
-
-Build the container image from the provided Dockerfile and push it to your private container registry.
-
-deploy the new application service (service + deployment) to the backendns namespace.
+**TASKS** (check corresponding flags on CTFD) 
+- create a new namespace called <b>backendns</b> where the backend pod will reside.
+- build the container image from the provided Dockerfile and push it to your private container registry.
+- deploy the new application service (service + deployment) to the backendns namespace.
 
 
 ### Check the application
@@ -413,15 +408,5 @@ document.cookie="flag6=COOKIE_VALUE8; expires=Mon, 2 Aug 2021 20:20:20 UTC; path
 </pre>
 
 you will find the CTF flag in the response page.
- 
-
-
-
-
-
-
-
-**Useful commands**:
-'''
-'''
+ ... Then you win!!!
 
