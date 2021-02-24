@@ -1,0 +1,16 @@
+apiVersion: k8s.nginx.org/v1 
+kind: VirtualServer
+metadata:
+  name: k8s101ingress
+spec:
+  ingressClassName: ingressclass1
+  host: www.mycompany.com
+  upstreams:
+  - name: v2
+    service: webapp-v2-svc
+    port: 80
+  routes:
+  - path: /
+    action:
+      proxy:
+        upstream: v2
