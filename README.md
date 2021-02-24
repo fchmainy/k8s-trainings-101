@@ -7,8 +7,8 @@ Of course, if there is a challenge, there will be a winner (I did not mention an
 Please go create a user account on [Capture the K8S Flag](http://ctfd.f5demolabs.org) and start playing.
 
 But we will never leave you alone:
-	- cheat-sheet: https://github.com/fchmainy/k8s-trainings-101/raw/main/doc/k8s-101-cheatsheet.pdf
-	- flow diagram: https://github.com/fchmainy/k8s-trainings-101/raw/main/doc/tshoot%20k8s%20pod%20deployment.pdf
+- cheat-sheet: https://github.com/fchmainy/k8s-trainings-101/raw/main/doc/k8s-101-cheatsheet.pdf
+- flow diagram: https://github.com/fchmainy/k8s-trainings-101/raw/main/doc/tshoot%20k8s%20pod%20deployment.pdf
 
 For every lab you will find a series of questions that will give you coins. You can ask for hints in exchange of some coins.
 
