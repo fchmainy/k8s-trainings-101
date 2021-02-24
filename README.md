@@ -46,7 +46,7 @@ When you are done:
 Gitlab is giving you the commands to make docker logged in into your registry along with the 2 needed commands to build and push your container image into your registry. We will use them very soon
 
 <pre>
-docker login <i>registry.gitlab.com</i>
+docker login <i>registry.gitlab.com</i> -u <i>yourDeployTokenUsername</i>
 </pre>
  
 make sure your append a correct tag and version at the end of the build and push commands.
@@ -307,7 +307,12 @@ There are multiple strategies to choose when releasing a new application version
 - Canary Testing
 - Blue/Green
 
+some external documentation: https://docs.flagger.app/usage/deployment-strategies
+
+
 It comes down to what do you want to achieve, who/what is testing the application?...
+You have multiple example you can inspire from at: https://github.com/nginxinc/kubernetes-ingress/tree/master/examples-of-custom-resources
+
 
 #### A/B Testing
 Here, we want to split part of the traffic (%) to the new version so we can validate and measure the proper functioning of the new version without impacting too many customers if there were any issue in the code.
@@ -374,17 +379,8 @@ spec:
 </pre>
 
 
-<pre>
->kubectl get svc --all-namespaces -l application=k8s101
-NAMESPACE   NAME             TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)   AGE
-backendns   webapp-back-v1   ClusterIP   10.99.200.155    <none>        80/TCP    6s
-frontns     webapp           ClusterIP   10.103.125.244   <none>        80/TCP    69m
-frontns     webappi-v2-svc   ClusterIP   10.110.131.55    <none>        80/TCP    71m
+Now we can redirect the whole Ingress traffic to the v2 frontend, remove the v1 webapp Ingress rules and remove the application.
 
->kubectl get svc --all-namespaces -l application=k8s101,version=v2,tier=back
-NAMESPACE   NAME             TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
-backendns   webapp-back-v1   ClusterIP   10.99.200.155   <none>        80/TCP    96s
-</pre>
 
 	
 You have multiple example you can inspire from at: https://github.com/nginxinc/kubernetes-ingress/tree/master/examples-of-custom-resources
@@ -397,6 +393,31 @@ You have multiple example you can inspire from at: https://github.com/nginxinc/k
 ### Description
 	- Deploy backend service
 	- access your application and capture the flag!!!
+
+### Deploy the backend service
+The backend is an API service that delivers an UUID based on a cookie provided by the frontend.
+
+create a new namespace called <b>backendns</b> where the backend pod will reside.
+
+Build the container image from the provided Dockerfile and push it to your private container registry.
+
+deploy the new application service (service + deployment) to the backendns namespace.
+
+
+### Check the application
+Access the v2 application and try accessing the application by inserting a cookie in your web browser:
+<pre>
+document.cookie="flag6=COOKIE_VALUE8; expires=Mon, 2 Aug 2021 20:20:20 UTC; path=/";
+</pre>
+
+you will find the CTF flag in the response page.
+ 
+
+
+
+
+
+
 
 **Useful commands**:
 '''
