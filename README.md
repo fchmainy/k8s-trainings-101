@@ -70,7 +70,7 @@ Now you can deploy this application in your kubernetes cluster
 
 <pre>
 kubectl create ns <b>frontns</b>
-kubectl create secret docker-registry <b>regcred</b> --docker-server=<i>registry.gitlab.com</i> --docker-username=<i>your@email.addr</i> --docker-password=<i>yourpassword</i> -n <b>frontns</b>
+kubectl create secret docker-registry <b>regcred</b> --docker-server=<i>registry.gitlab.com</i> --docker-username=<i>yourDeployTokenUsername</i> --docker-password=<i>yourDeployTokenPassword</i> -n <b>frontns</b>
 kubectl apply -f v1_webapp_k8s_manifest.yaml -n <b>frontns</b>
 </pre>
 
@@ -164,6 +164,8 @@ You should access the webapp (v1) web page:
 <p align="center">
 	<img width="100" src="v1/v1_icon.png" alt="V1 logo">
 </p>
+Note:
+You can also expose your application using the expose service object and access your application via a NodePort. This is a permanent change (until you explicitly remove it) so we won't use it here as we prefer using an Ingress service. Expose is presented here: https://kubernetes.io/docs/tutorials/stateless-application/expose-external-ip-address/
 
 Using the instructor private registry deployment token username and password, you should create a new namespace called **"ingress"**, create a docker-registry secret and deploy into the ingress namespace the following container image:
 <pre>
