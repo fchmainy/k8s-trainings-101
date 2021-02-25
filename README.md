@@ -53,6 +53,7 @@ make sure your append a correct tag and version at the end of the build and push
 
 Now, let's download the application code:
 
+make sure your append a correct tag and version at the end of the build and push commands Gitlab gave you previously.
 <pre>
 git clone https://github.com/fchmainy/k8s-trainings-101.git
 cd k8s-trainings-101/v1/
@@ -60,7 +61,6 @@ docker build -t registry.gitlab.com<i>/f.chmainy/mygitrepo</i><b>/webapp:v1</b> 
 docker push registry.gitlab.com<i>/f.chmainy/mygitrepo</i><b>/webapp:v1</b>
 </pre>
 
-make sure your append a correct tag and version at the end of the build and push commands Gitlab gave you previously.
 
 Verify the v1 of the webapp container image is on your registry.
 
