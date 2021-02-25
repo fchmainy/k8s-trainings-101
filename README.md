@@ -176,8 +176,6 @@ You can inspire from the example on the official [NGINX INC Github Repository](h
 
 <pre>
 kubectl port-forward 
-kubectl port-forward
-kubectl port-forward
 </pre>
 
 
