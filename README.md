@@ -4,7 +4,7 @@ This is a series of exercices and hands on in order to get into Kubernetes and s
 
 ## Capture the Flag
 Of course, if there is a challenge, there will be a winner (I did not mention anything about a price though)!
-Please go create a user account on [Capture the K8S Flag](http://ctfd.f5demolabs.org) and start playing.
+Please go create a user account on [Capture the K8S Flag](http://ctfd.f5demolab.org) and start playing.
 
 But we will never leave you alone:
 - cheat-sheet: https://github.com/fchmainy/k8s-trainings-101/raw/main/doc/k8s-101-cheatsheet.pdf
@@ -73,7 +73,7 @@ Now you can deploy this application in your kubernetes cluster (check the follow
 - deploy the v1_webapp_k8s_manifest.yaml in your **frontns** namespace (verify the manifest file content so it matches your ecosystem).
 
 
-> :warning: Don't forget to go check on [CTFD](http://ctfd.f5demolabs.org) if there are any challenges and questions for this section
+> :warning: Don't forget to go check on [CTFD](http://ctfd.f5demolab.org) if there are any challenges and questions for this section
 
 ### Useful commands
 
@@ -170,7 +170,7 @@ Then create an Ingress Resource to access your application.
 You can inspire from the example on the official [NGINX INC Github Repository](https://github.com/nginxinc/kubernetes-ingress/tree/master/examples-of-custom-resources/basic-configuration)
 
 
-> :warning: Don't forget to go check on [CTFD](http://ctfd.f5demolabs.org) if there are any challenges and questions for this section
+> :warning: Don't forget to go check on [CTFD](http://ctfd.f5demolab.org) if there are any challenges and questions for this section
 
 ### Useful commands
 
