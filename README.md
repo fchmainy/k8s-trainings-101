@@ -155,18 +155,10 @@ You should access the webapp (v1) web page:
 	<img width="100" src="v1/v1_icon.png" alt="V1 logo">
 </p>
 
+You will find, on the presented V1 web page, the instructor gitlab Deploy Token Username and Password. Keep it safely, you will need it for the next tasks.
+
 Note:
 <i>You can also expose your application using the expose service object and access your application via a NodePort. This is a permanent change (until you explicitly remove it) so we won't use it here as we prefer using an Ingress service. Expose is presented here: https://kubernetes.io/docs/tutorials/stateless-application/expose-external-ip-address/</i>
-
-**TASKS** (check corresponding flags on CTFD):
-Using the instructor private registry deployment token username and password, you should create a new namespace called **"ingress"**, create a docker-registry secret and deploy into the ingress namespace the following container image:
-<pre>
-	<b>registry.gitlab.com/f.chmainy/nginx:v1.10.0</b>
-</pre>
-
-Then create an Ingress Resource to access your application.
-You can inspire from the example on the official [NGINX INC Github Repository](https://github.com/nginxinc/kubernetes-ingress/tree/master/examples-of-custom-resources/basic-configuration)
-
 
 > :warning: Don't forget to go check on [CTFD](http://ctfd.f5demolab.org) if there are any challenges and questions for this section
 
@@ -179,12 +171,24 @@ kubectl port-forward
 
 ## Lab3 - Manage versioning of your application with Ingress
 ### Description
+	- Deploy an Ingress Resource to access the (v1) application
 	- Deploy the version 2 (v2) of the web application
 	- Deployment Strategies (Canary Realease, A/B Testing...)
 
-A new version of our application has been developed and ready to be released. In a real life the testing, validation, building and release should be automated as part of a CI/CD pipeline. We are gogoing to manually detail part of this process to understand the advanced routing capabilities of our NGINX Ingress services in delivering applications.
+In a real life the testing, validation, building and release should be automated as part of a CI/CD pipeline. We are gogoing to manually detail part of this process to understand the advanced routing capabilities of our NGINX Ingress services in delivering applications.
 
 ### Install NGINX Ingress Controller
+To access your kubernetes services from the outside world, the common way is to use an Ingress service.
+
+:warning The Ingress Controller has to be deployed in any namespace disctinct from the application services. The Ingress Resources are however deployed in the app services namespaces.
+
+**TASKS** (check corresponding flags on CTFD):
+Using the instructor private registry deployment token username and password, you should create a new namespace called **"ingress"**, create a docker-registry secret and deploy into the ingress namespace the following container image:
+<pre>
+	<b>registry.gitlab.com/f.chmainy/nginx:v1.10.0</b>
+</pre>
+
+
 There are multiple ways we can install the NGINX Kubernetes Ingress Controller:
 - [using manifests](https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-manifests/)
 - [using helm](https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-helm/)
@@ -233,6 +237,10 @@ helm install nginx-ingress nginx-stable/nginx-ingress \
 --set controller.ingressClass=<b>ingressclass1</b>
 </pre>
 
+### Ingress Resource
+Next step is creating an Ingress Resource to access your application.
+You can inspire from the example on the official [NGINX INC Github Repository](https://github.com/nginxinc/kubernetes-ingress/tree/master/examples-of-custom-resources/basic-configuration)
+
 
 ### Access the v1 web application
 In the web application namespace (frontns), we should now deploy the Ingress Resource matching the Ingress Class specified when we deployed the Ingress Controller:
@@ -262,7 +270,7 @@ Note:
 
 
 ### Build and deploy the version 2 of your application
-
+A new version of our application has been developed and ready to be released. 
 First, build and push the v2 front container image into your private container image registry.
 <pre>
 <b>
