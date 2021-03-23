@@ -49,8 +49,6 @@ Gitlab is giving you the commands to make docker logged in into your registry al
 docker login <i>registry.gitlab.com</i> -u <i>yourDeployTokenUsername</i>
 </pre>
  
-make sure your append a correct tag and version at the end of the build and push commands.
-
 Now, let's download the application code:
 
 make sure your append a correct tag and version at the end of the build and push commands Gitlab gave you previously.
