@@ -55,8 +55,8 @@ make sure your append a correct tag and version at the end of the build and push
 <pre>
 git clone https://github.com/fchmainy/k8s-trainings-101.git
 cd k8s-trainings-101/v1/
-docker build -t registry.gitlab.com<i>/f.chmainy/mygitrepo</i><b>/webapp:v1</b> .
-docker push registry.gitlab.com<i>/f.chmainy/mygitrepo</i><b>/webapp:v1</b>
+docker build -t registry.gitlab.com<i>/<YourRepo></i><b>/webapp:v1</b> .
+docker push registry.gitlab.com<i>/<YourRepo></i><b>/webapp:v1</b>
 </pre>
 
 
