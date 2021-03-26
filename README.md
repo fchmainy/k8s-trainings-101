@@ -195,6 +195,7 @@ There are multiple ways we can install the NGINX Kubernetes Ingress Controller:
 - [using operator](https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-operator/)
 
 here we will use the helm deployment mode as it is the simpler way to install all the components (Service Accounts, CRDs,...).
+Please type the following commands to install the latest nginx ingress helm chart.
 
 <pre>
 <b>helm repo list</b>
