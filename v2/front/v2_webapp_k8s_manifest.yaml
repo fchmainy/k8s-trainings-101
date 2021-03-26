@@ -11,7 +11,7 @@ spec:
   type: ClusterIP
   ports:
   - port: 80
-    targetPort: 80
+    targetPort: 8080
   selector:
     app: webapp
     version: v2
@@ -41,6 +41,6 @@ spec:
         image: registry.gitlab.com/f.chmainy/toremove/webapp:v2
         imagePullPolicy: Always
         ports:
-        - containerPort: 80
+        - containerPort: 8080
       imagePullSecrets:
         - name: myregcred
