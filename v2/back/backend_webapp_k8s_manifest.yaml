@@ -33,7 +33,7 @@ spec:
   template:
     metadata:
       labels:
-        app: webapp
+        app: webapp-back-v1
         version: v2
     spec:
       containers:
