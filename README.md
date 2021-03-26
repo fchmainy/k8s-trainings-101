@@ -274,7 +274,7 @@ A new version of our application has been developed and ready to be released.
 First, build and push the v2 front container image into your private container image registry.
 <pre>
 <b>
-cd ../v2
+cd ../v2/front/
 docker build -t registry.gitlab.com/f.chmainy/toremove/webapp:v2 .
 docker push registry.gitlab.com/f.chmainy/toremove/webapp:v2
 </b>
