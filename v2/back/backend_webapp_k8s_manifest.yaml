@@ -28,7 +28,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: webapp
+      app: webapp-back-v1
       version: v2
   template:
     metadata:
