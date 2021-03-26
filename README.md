@@ -385,7 +385,25 @@ Using chrome and go to the Developer tools / Console, you can inject the require
 document.cookie="flag6=COOKIE_VALUE6; expires=Mon, 2 Aug 2021 20:20:20 UTC; path=/";
 </pre>
 
-Now we can redirect the whole Ingress traffic to the v2 frontend, remove the v1 webapp Ingress rules and remove the application.
+Now we can redirect the whole Ingress traffic to the v2 frontend, remove the v1 webapp Ingress rules and remove the application:
+<pre>
+apiVersion: k8s.nginx.org/v1
+kind: VirtualServer
+metadata:
+  name: k8s101ingress
+spec:
+  ingressClassName: ingressclass1
+  host: www.mycompany.com
+  upstreams:
+  - name: v2
+    service: webapp-v2-svc
+    port: 80
+  routes:
+  - path: /
+    action:
+      proxy:
+        upstream: v2
+</pre>
 
 Note:
 You have multiple example you can inspire for advanced routing from at: https://github.com/nginxinc/kubernetes-ingress/tree/master/examples-of-custom-resources
