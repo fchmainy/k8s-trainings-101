@@ -12,33 +12,32 @@ But we will never leave you alone:
 
 For every lab you will find a series of questions that will give you coins. You can ask for hints in exchange of some coins.
 
+Table of content:
+
+    Lab0 - Getting familiar with Docker Engine and build your first application
+    Lab1 - Getting familiar with yrou k8S Cluster
+    Lab2 - Deploy your first application
+    Lab3 - Make application accessible from outside
+    Lab4 - Publish your application with Ingress
+    Optional Lab5 - Deploy a new version of the app and manage versioning with Ingress
+    Optional Lab6 - East-West or Microservice-to-Microservice traffic
+
 ---
 
-## Lab0 - Getting familiar with your K8S Cluster
+## Lab0 - Getting familiar with Docker Engine and build your first application
 ### Description
 
-> Understanding the main components of a K8S Clutser, node types, basic networking, meaning and relationship between Services, Endpoints and Pods.
+> In this section, we will learn the 3 most important Docker commands in order to build yoru contianer image and push this image to your private repository
 
 **Useful commands**:
 
-    kubectl cluster-info
-    kubectl get nodes
-    kubectl get namespaces
-    kubectl get service -n *namespace*
-    kubectl get endpoints -n *namespace*
-    kubectl get pods -n *namespace*
-
----
-
-## Lab1 - Build and deploy your first application
-### Description
-	- what is Container and why container registries are important?
-	- managing secrets
-	- basic git commands
-	- deploy your application
+    docker login
+    docker build
+    docker push
+    basic git commands
 
 ### Tasks
-if you don't have a gitlab.com (free) account, please create one. We will use it as a Source Code Management but mostly here as a private container registry.
+If you don't have a gitlab.com (free) account, please create one. We will use it as a Source Code Management but mostly here as a private container registry.
 When you are done:
  - create a new project
  - create a new Deployment token Username and Password (Settings > Repository > Deploy Tokens). Keep them safetly, we will use them in the whole labs.
@@ -62,6 +61,28 @@ docker push registry.gitlab.com<i>/YourRepo</i><b>/webapp:v1</b>
 
 Verify the v1 of the webapp container image is on your registry.
 
+---
+
+## Lab1 - Getting familiar with your K8S Cluster
+### Description
+
+> Understanding the main components of a K8S Clutser, node types, basic networking, meaning and relationship between Services, Endpoints and Pods.
+
+**Useful commands**:
+
+    kubectl cluster-info
+    kubectl get nodes
+    kubectl get namespaces
+    kubectl get service -n *namespace*
+    kubectl get endpoints -n *namespace*
+    kubectl get pods -n *namespace*
+
+---
+
+## Lab2 - Deploy your first application
+### Description
+	- deploy your application
+
 We have prepared a model for the kubernetes manifest in order to help you create the service and the deployment. Please modify so it matches your requirements.
 
 Now you can deploy this application in your kubernetes cluster (check the following challenges in ctfd):
@@ -76,9 +97,6 @@ Now you can deploy this application in your kubernetes cluster (check the follow
 ### Useful commands
 
 <pre>
-docker login
-docker build
-docker push
 kubectl create ns
 kubectl create secret
 kubectl apply
@@ -87,7 +105,7 @@ kubectl apply
 ---
 
 
-## Lab2 - Make application accessible from outside
+## Lab3 - Make application accessible from outside
 ### Description:
 	- Look into your app
 	- Expose your application
@@ -169,11 +187,9 @@ kubectl port-forward
 </pre>
 
 
-## Lab3 - Manage versioning of your application with Ingress
+## Lab4 - Publish your application with Ingress
 ### Description
 	- Deploy an Ingress Resource to access the (v1) application
-	- Deploy the version 2 (v2) of the web application
-	- Deployment Strategies (Canary Realease, A/B Testing...)
 
 In a real life the testing, validation, building and release should be automated as part of a CI/CD pipeline. We are gogoing to manually detail part of this process to understand the advanced routing capabilities of our NGINX Ingress services in delivering applications.
 
@@ -269,6 +285,12 @@ you can now access your v1 application using your web browser at http://www.myco
 Note:
 <i>if you are using the UDF blueprint, the www.company.com fqdn should already be registered in the jumpHost hosts file.</i>
 
+---
+
+## Optional Lab5 - Deploy a new version of the app and manage versioning with Ingress
+### Description
+	- Deploy the version 2 (v2) of the web application
+	- Deployment Strategies (Canary Realease, A/B Testing...)
 
 ### Build and deploy the version 2 of your application
 A new version of our application has been developed and ready to be released. 
@@ -410,7 +432,7 @@ Note:
 You have multiple example you can inspire for advanced routing from at: https://github.com/nginxinc/kubernetes-ingress/tree/master/examples-of-custom-resources
 
 
-## Lab4 - East-West or Microservice-to-Microservice traffic
+## Optional Lab6 - East-West or Microservice-to-Microservice traffic
 ### Description
 	- Deploy backend service
 	- access your application and capture the flag!!!
