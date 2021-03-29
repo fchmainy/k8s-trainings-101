@@ -186,6 +186,7 @@ Note:
 kubectl port-forward 
 </pre>
 
+---
 
 ## Lab4 - Publish your application with Ingress
 ### Description
@@ -431,6 +432,7 @@ spec:
 Note:
 You have multiple example you can inspire for advanced routing from at: https://github.com/nginxinc/kubernetes-ingress/tree/master/examples-of-custom-resources
 
+---
 
 ## Optional Lab6 - East-West or Microservice-to-Microservice traffic
 ### Description
