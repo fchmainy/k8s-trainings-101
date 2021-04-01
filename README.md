@@ -23,6 +23,16 @@ Table of content:
     Optional Lab6 - East-West or Microservice-to-Microservice traffic
 
 ---
+## Pre-requisites
+
+Please install on student machines:
+- Docker desktop
+- Helm
+- git command
+
+In case a student can't install the pre-req, there is an UDF BP : https://udf.f5.com/b/8c967d89-dcb3-4788-b41c-1e6a066d3ad5#documentation
+
+---
 
 ## Lab0 - Getting familiar with Docker Engine and build your first application
 ### Description
