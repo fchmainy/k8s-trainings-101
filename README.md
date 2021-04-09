@@ -30,6 +30,10 @@ Please install on student machines:
 - Helm
 - git command
 
+ ![docker_desktop_preferences](doc/docker_desktop_preferences_kubernetes.png) 
+> For Docker Desktop, be sure to enable kubernetes inside docker desktop preferences
+
+
 In case a student can't install the pre-req, there is an UDF BP : https://udf.f5.com/b/8c967d89-dcb3-4788-b41c-1e6a066d3ad5#documentation
 
 ---
