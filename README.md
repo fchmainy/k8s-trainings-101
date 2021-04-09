@@ -47,8 +47,8 @@ In case a student can't install the pre-req, there is an UDF BP : https://udf.f5
 
 **Useful commands**:
 
-    docker login _[OPTIONS]_** _[SERVER]_**
-    docker build _..._**
+    docker login [OPTIONS] [SERVER]
+    docker build
     docker push
     basic git commands
 
