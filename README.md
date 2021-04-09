@@ -37,20 +37,22 @@ In case a student can't install the pre-req, there is an UDF BP : https://udf.f5
 ## Lab0 - Getting familiar with Docker Engine and build your first application
 ### Description
 
-> In this section, we will learn the 3 most important Docker commands in order to build yoru contianer image and push this image to your private repository
+> In this section, we will learn the 3 most important Docker commands in order to build your container image and push this image to your private repository.
+> The repository can be a local registry running in your laptop, a github.com registry (public or private), gitlab.com registry or any other that can be accessed
+> from the lab environment.
 
 **Useful commands**:
 
-    docker login
-    docker build
+    docker login _[OPTIONS]_** _[SERVER]_**
+    docker build _..._**
     docker push
     basic git commands
 
 ### Tasks
-If you don't have a gitlab.com (free) account, please create one. We will use it as a Source Code Management but mostly here as a private container registry.
+If you don't have a _gitlab.com_** (free) account, please create one. We will use it as a Source Code Management but mostly here as a private container registry.
 When you are done:
  - create a new project
- - create a new Deployment token Username and Password (Settings > Repository > Deploy Tokens). Keep them safetly, we will use them in the whole labs.
+ - create a new Deployment token Username and Password (Settings > Repository > Deploy Tokens). Keep them safetly, we will use them along the whole labs.
  - Go to container registry (Package & Registry > Container Registry)
 Gitlab is giving you the commands to make docker logged in into your registry along with the 2 needed commands to build and push your container image into your registry. We will use them very soon
 
