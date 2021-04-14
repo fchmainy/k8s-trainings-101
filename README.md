@@ -53,12 +53,16 @@ In case a student can't install the pre-req, there is an UDF BP : https://udf.f5
     basic git commands
 
 ### Tasks
-If you don't have a _gitlab.com_** (free) account, please create one. We will use it as a Source Code Management but mostly here as a private container registry.
+If you don't have a _gitlab.com_ (free) account, please create one. We will use it as a Source Code Management but mostly here as a private container registry.
 When you are done:
  - create a new project
- - create a new Deployment token Username and Password (Settings > Repository > Deploy Tokens). Keep them safetly, we will use them along the whole labs.
+ - create a new Deployment token Username and Password (Settings > Repository > Deploy Tokens). Keep them safely, we will use them along the whole labs.
  - Go to container registry (Package & Registry > Container Registry)
 Gitlab is giving you the commands to make docker logged in into your registry along with the 2 needed commands to build and push your container image into your registry. We will use them very soon
+
+![DeployTokenSettings](doc/Deploy_Tokens_Settings.png)
+![DeployTokenRW](doc/DeployTokenRBACs.png)
+![DeployTokenTokenUserPass](doc/Deploy_Token_password.png)
 
 <pre>
 docker login <i>registry.gitlab.com</i> -u <i>yourDeployTokenUsername</i>
@@ -106,6 +110,7 @@ Now you can deploy this application in your kubernetes cluster (check the follow
 -  create a namespace called **frontns**
 - create a docker-registry kubernetes secret on registry.gitlab.com using your deploy tokens.
 - deploy the v1_webapp_k8s_manifest.yaml in your **frontns** namespace (verify the manifest file content so it matches your ecosystem).
+
 
 
 > :warning: Don't forget to go check on [CTFD](http://ctfd.f5demolab.org) if there are any challenges and questions for this section
