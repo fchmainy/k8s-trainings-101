@@ -60,9 +60,14 @@ When you are done:
  - Go to container registry (Package & Registry > Container Registry)
 Gitlab is giving you the commands to make docker logged in into your registry along with the 2 needed commands to build and push your container image into your registry. We will use them very soon
 
+
+-------
 ![DeployTokenSettings](doc/Deploy_Tokens_Settings.png)
+-------
 ![DeployTokenRW](doc/DeployTokenRBACs.png)
+-------
 ![DeployTokenTokenUserPass](doc/Deploy_Token_password.png)
+-------
 
 <pre>
 docker login <i>registry.gitlab.com</i> -u <i>yourDeployTokenUsername</i>
