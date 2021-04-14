@@ -68,6 +68,7 @@ Gitlab is giving you the commands to make docker logged in into your registry al
 -------
 ![DeployTokenTokenUserPass](doc/Deploy_Token_password.png)
 -------
+&nbsp;<br>
 
 <pre>
 docker login <i>registry.gitlab.com</i> -u <i>yourDeployTokenUsername</i>
