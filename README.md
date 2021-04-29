@@ -311,7 +311,7 @@ spec:
 
 you can now access your v1 application using your web browser at http://www.mycompany.com:30274
 Note:
-<i>if you are using the UDF blueprint, the www.mycompany.com fqdn should already be registered in the jumpHost hosts file.</i>
+<i>if you are using the UDF blueprint, the www.mycompany.com:30274 fqdn should already be registered in the jumpHost hosts file.</i>
 
 ---
 
