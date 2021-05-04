@@ -3,7 +3,7 @@
 This is a series of hands-on exercices that will help you get into Kubernetes (known by the shorthand 'k8s') and start working on NGINX Ingress Controller.
 
 ## Capture the Flag
-Of course, if there is a challenge, there will be a winner (I did not mention anything about a price though)!
+Of course, if there is a challenge, there will be a winner (I did not mention anything about a prize though)!
 Please go and create a user account on [Capture the K8S Flag](http://ctfd.f5demolab.org) and start playing.
 
 Don't worry, you are not alone:
@@ -106,7 +106,7 @@ docker push registry.gitlab.com<i><b>/YourUser/YourRepo</i>/webapp:v1</b>
 
 Just poke around using the commands above, to understand how the various constructs and components relate to eachother.
 
-> :warning: Don't forget to check [CTFD](http://ctfd.f5demolab.org) to see if there are any challenges and questions for this section.
+> :warning: Don't forget to check [CTFD](http://ctfd.f5demolab.org) to see if there are any challenges or questions for this section.
 
 ---
 
@@ -131,7 +131,7 @@ kubectl apply
  - create a docker-registry kubernetes secret on registry.gitlab.com using your deploy tokens.
  - deploy the v1_webapp_k8s_manifest.yaml in your **frontns** namespace (verify the manifest file content so it matches your environment).
 
-> :warning: Don't forget to check [CTFD](http://ctfd.f5demolab.org) to see if there are any challenges and questions for this section.
+> :warning: Don't forget to check [CTFD](http://ctfd.f5demolab.org) to see if there are any challenges or questions for this section.
 
 ---
 
@@ -206,19 +206,18 @@ Port Forwarding can be applied to the Service, Deployment, Pods... it really dep
 - curl http://127.0.0.1:5000
 </pre>
 
-   You should access your webapp (v1) web page:
+ - You should access your webapp (v1) web page:
 
 <p align="center">
 	<img width="100" src="v1/v1_icon.png" alt="V1 logo">
 </p>
 
-   You will find, on the presented V1 web page, the instructor gitlab Deploy Token Username and Password. Keep these credentials safe, you will need them in the next lab.
+ - You will find, on the presented V1 web page, the instructor gitlab Deploy Token Username and Password. Keep these credentials safe, you will need them in the next lab.
 
 Note:
 <i>You can also expose your application using the expose service object and access your application via a NodePort. This is a permanent change (until you explicitly remove it) so we won't use it here as we prefer using an Ingress service. Expose is presented here: https://kubernetes.io/docs/tutorials/stateless-application/expose-external-ip-address/</i>
 
-> :warning: Don't forget to go check on [CTFD](http://ctfd.f5demolab.org) if there are any challenges and questions for this section
-
+> :warning: Don't forget to check [CTFD](http://ctfd.f5demolab.org) to see if there are any challenges or questions for this section.
 
 ---
 
@@ -226,26 +225,32 @@ Note:
 ### Description
 > The goal of this lab is to create an Ingress Resource to access the webapp (v1) application.  Before we can do this, we need to install NGINX Ingress Controller into our Kubernetes cluster.
 
-In the real world, the testing, validation, building and release of an application _should_ be automated as part of a CI/CD pipeline. We are going to manually step through part of this process, to understand the advanced routing capabilities of our NGINX Ingress services in delivering applications that are deployed into Kubernetes.
+> In the real world, the testing, validation, building and release of an application _should_ be automated as part of a CI/CD pipeline. We are going to manually step through part of this process, to understand the advanced routing capabilities of our NGINX Ingress services in delivering applications that are deployed into Kubernetes.
+
+> :warning: Don't forget to check [CTFD](http://ctfd.f5demolab.org) to see if there are any challenges or questions for this section.
 
 ### Lab4 Tasks:
 
 The most common method used to access Kubernetes services from the outside world, is deployment of an Ingress resource.  To do this, we first need to install an Ingress Controller.  There are many options for Ingress Controller, but we will use NGINX for this lab.
 
-:warning The Ingress _Resources_ must be deployed into the application namespaces (e.g. frontns).  The Ingress _Controller_ however, must NOT be installed into the application namespaces, it should be installed into it's own namespace (e.g. ingress).
+> :warning: The Ingress _Resources_ must be deployed into the application namespaces (e.g. frontns).  The Ingress _Controller_ however, must NOT be installed into the application namespaces, it should be installed into it's own namespace (e.g. ingress).
 
-1. Get the NGINX image.  Using the instructor private registry deployment token username and password, you should create a new namespace called **"ingress"**, create a docker-registry secret and deploy into the ingress namespace the following container image:
+**1. Get NGINX image.**  Using the instructor private registry deployment token username and password, you should create a new namespace called **"ingress"**, create a docker-registry secret and then deploy the NGINX Ingress Controller image: 
+ - create a namespace called **ingress**
+ - create a docker-registry secret in the **ingress** namespace using the instructor deploy username/password tokens. 
+ - deploy the following container image into the ingress namespace:
+
 <pre>
 	<b>registry.gitlab.com/f.chmainy/nginx:v1.10.0</b>
 </pre>
 
 
-2. There are multiple ways we can install the NGINX Kubernetes Ingress Controller:
- - [using manifests](https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-manifests/)
- - [using helm](https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-helm/)
- - [using operator](https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-operator/)
+**2. Get the Helm Chart for NGINX.**  There are multiple ways we can install the NGINX Kubernetes Ingress Controller:
+ * [using manifests](https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-manifests/)
+ * [using helm](https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-helm/)
+ * [using operator](https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-operator/)
 
-   Here we will use the Helm deployment mode, as it is the simplest way to install _all_ the components (Service Accounts, CRDs, etc.) required for a complex deployment.  Please type the following commands to install the latest NGINX Ingress Helm chart.
+ - In this lab we will use the Helm deployment mode, as it is the simplest way to install _all_ the components (Service Accounts, CRDs, etc.) required for a complex deployment.  Please type the following commands to install the latest NGINX Ingress Helm chart.
 
 <pre>
 <b>helm repo list</b>
@@ -264,14 +269,8 @@ NAME            URL
 nginx-stable    https://helm.nginx.com/stable
 </pre>
 
-The Ingress Controller can be deployed in any namespace disctinct from the application services. The Ingress Resources are however deployed in the app services namespaces.
 
-**TASKS** (check corresponding flags on CTFD):
-- create a namespace called **ingress**
-- create a docker-registry secret in the **ingress** namespace using the instructor deploy username/password tokens.
-
-
-Now, we are going to deploy the NGINX Plus Ingress and all of the required components in a single command:
+3. Deploy NGINX using Helm.  Now, we are going to deploy the NGINX Plus Ingress and all of the required components in a single command:
 <pre>
 helm install nginx-ingress nginx-stable/nginx-ingress \
 --namespace <b>ingress</b> \
@@ -289,6 +288,8 @@ helm install nginx-ingress nginx-stable/nginx-ingress \
 </pre>
 
 ### Ingress Resource
+3. Now that you have installed the Ingress Controller into the **ingress** namespace, you can move on to deploy the Ingress Resources.  Ingress Resources must be deployed into the application namespaces.
+
 Next step is creating an Ingress Resource to access your application.
 You can inspire from the example on the official [NGINX INC Github Repository](https://github.com/nginxinc/kubernetes-ingress/tree/master/examples-of-custom-resources/basic-configuration)
 
