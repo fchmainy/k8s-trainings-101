@@ -70,7 +70,7 @@ Get your credentials:
 -------
  &nbsp;<br>
 
-  - go to container registry (Package & Registry > Container Registry).  Gitlab outputs the commands that allow docker to _login_ to your registry, along with the two needed commands to build and push your container image _into_ your registry.  We will use these commands shortly.  For example, your _login_ command will look something like this:
+  - go to container registry (Package & Registry > Container Registry).  You should find a button that outputs the CLI Commands that allow docker to _login_ to your registry, along with the two needed commands to build and push your container image _into_ your registry.  We will use these commands shortly.  For example, your _login_ command will look something like this:
 
 <pre>
 docker login <i>registry.gitlab.com</i> -u <i>yourDeployTokenUsername</i>
@@ -80,11 +80,11 @@ docker login <i>registry.gitlab.com</i> -u <i>yourDeployTokenUsername</i>
 <pre>
 git clone https://github.com/fchmainy/k8s-trainings-101.git
 cd k8s-trainings-101/v1/
-docker build -t registry.gitlab.com<i><b>/YourRepo</i>/webapp:v1</b> .
-docker push registry.gitlab.com<i><b>/YourRepo</i>/webapp:v1</b>
+docker build -t registry.gitlab.com<i><b>/YourUser/YourRepo</i>/webapp:v1</b> .
+docker push registry.gitlab.com<i><b>/YoiurUser/YourRepo</i>/webapp:v1</b>
 </pre>
 
-Verify the v1 of the webapp container image is on your registry.
+ - Finally, verify that the webapp container image is in _your_ registry.
 
 ---
 
