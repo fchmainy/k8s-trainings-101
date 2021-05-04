@@ -486,4 +486,4 @@ document.cookie="flag6=COOKIE_VALUE8; expires=Mon, 2 Aug 2021 20:20:20 UTC; path
 
 You will find the CTF flag in the response page.
 
- **... Then you win!!!**
+ **...then you win!!!**
