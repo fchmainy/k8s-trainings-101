@@ -81,7 +81,7 @@ docker login <i>registry.gitlab.com</i> -u <i>yourDeployTokenUsername</i>
 git clone https://github.com/fchmainy/k8s-trainings-101.git
 cd k8s-trainings-101/v1/
 docker build -t registry.gitlab.com<i><b>/YourUser/YourRepo</i>/webapp:v1</b> .
-docker push registry.gitlab.com<i><b>/YoiurUser/YourRepo</i>/webapp:v1</b>
+docker push registry.gitlab.com<i><b>/YourUser/YourRepo</i>/webapp:v1</b>
 </pre>
 
  - Finally, verify that the webapp container image is in _your_ registry.
@@ -91,7 +91,7 @@ docker push registry.gitlab.com<i><b>/YoiurUser/YourRepo</i>/webapp:v1</b>
 ## Lab1 - Getting familiar with your K8S Cluster
 ### Description
 
-> Understanding the main components of a K8S Clutser, node types, basic networking, meaning and relationship between Services, Endpoints and Pods.
+> The goal of this lab is just to gain an understanding of the main components of a K8S Clutser such as node types, basic networking, the meaning and relationship between Services, Endpoints and Pods.  Use the following commands to output information about your k8s cluster.
 
 **Useful commands**:
 
@@ -106,19 +106,17 @@ docker push registry.gitlab.com<i><b>/YoiurUser/YourRepo</i>/webapp:v1</b>
 
 ## Lab2 - Deploy your first application
 ### Description
-	- deploy your application
+> In this lab, you will deploy your application.
 
-We have prepared a model for the kubernetes manifest in order to help you create the service and the deployment. Please modify so it matches your requirements.
+We have prepared an example YAML template file for the Kubernetes deployment manifest, in order to help you create the service and the deployment. Please modify the example so that it matches your requirements.
 
-Now you can deploy this application in your kubernetes cluster (check the following challenges in ctfd):
-**TASKS:** (check corresponding flags on CTFD):
--  create a namespace called **frontns**
+Now you can deploy your application into your kubernetes cluster (check the following challenges in CTFD):
+**TASKS:** (check corresponding flags in the CTFD):
+- create a namespace called **frontns**
 - create a docker-registry kubernetes secret on registry.gitlab.com using your deploy tokens.
-- deploy the v1_webapp_k8s_manifest.yaml in your **frontns** namespace (verify the manifest file content so it matches your ecosystem).
+- deploy the v1_webapp_k8s_manifest.yaml in your **frontns** namespace (verify the manifest file content so it matches your environment).
 
-
-
-> :warning: Don't forget to go check on [CTFD](http://ctfd.f5demolab.org) if there are any challenges and questions for this section
+> :warning: Don't forget to check [CTFD](http://ctfd.f5demolab.org) to see if there are any challenges and questions for this section.
 
 ### Useful commands
 
