@@ -313,10 +313,10 @@ spec:
 
  - You should now be able to access your v1 application using your web browser at http://www.mycompany.com:30274
 
+> :warning: Ingress is a 'shared' model, and it is therefore expected to provide access to many applications.  The Ingress Resource 'spec' you deployed instructs NGINX to use the Host header 'www.mycompany.com' to identify requests for your application requests and steers them to your webapp containers.  This means that any request to the Ingress must include the correct Host Header.  
+
 Note:
 <i>if you are using the UDF blueprint, the www.mycompany.com:30274 fqdn should already be registered in the jumpHost hosts file.</i>
-
-> :warning: Ingress is a 'shared' model, and it is therefore expected to provide access to many applications.  The Ingress Resource 'spec' you deployed instructs NGINX to use the Host header 'www.mycompany.com' to identify requests for your application requests and steers them to your webapp containers.  This means that any request to the Ingress must include the correct Host Header.  
 
 ---
 
