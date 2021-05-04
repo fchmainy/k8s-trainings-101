@@ -54,7 +54,7 @@ In case a student can't install the pre-requisites, there is an UDF BP : https:/
 
 ### Lab0 Tasks
 
-1. If you don't have a _gitlab.com_ (free) account, please create one (if you have a _github.com_ account already, you can use that to login to _gitlab.com_). We will use _gitlab.com_ as a Source Code Management tool, but mostly, as a private container registry.  Once your account is created:
+**1. Prepare your Gitlab.**  If you don't have a _gitlab.com_ (free) account, please create one (if you have a _github.com_ account already, you can use that to login to _gitlab.com_). We will use _gitlab.com_ as a Source Code Management tool, but mostly, as a private container registry.  Once your account is created:
   - create a new project
   - create a new Deployment token Username and Password (the screen shots below show the steps). Keep the credentials safe, because we will use them in the remaining labs:
 
@@ -124,8 +124,8 @@ kubectl apply
 
 ### Lab2 Tasks:
 
-1. We have prepared an example YAML template file for the Kubernetes deployment manifest, in order to help you create the service and the deployment. Please remember to modify the example so that it matches your requirements.
-2. Now you can deploy your application into your kubernetes cluster:
+**1. Modify the YAML Template.** We have prepared an example YAML template file for the Kubernetes deployment manifest, in order to help you create the service and the deployment. Please remember to modify the example so that it matches your requirements.
+**2. Deploy your App.**  Now you can prepare for, and deploy your application into your kubernetes cluster:
 
  - create a namespace called **frontns**
  - create a docker-registry kubernetes secret on registry.gitlab.com using your deploy tokens.
@@ -152,7 +152,7 @@ kubectl port-forward
 
 ### Lab3 Tasks:
 
-1. Understand how your application works:
+**1. Understand how your application works.**:
 
 <pre>
 ❯ kubectl get svc -n frontns -l tier=front -l version=v1
@@ -187,7 +187,7 @@ webapp-7dd5ff6788-t8xdt   1/1     Running   0          11m  <span style="color:b
 
 ![svc-ep-pods](doc/svc-ep-pods_webapp_v1.png)
 
-2. Even though your application is isolated within your Kubernetes cluster, without any external access configured, you can still check if the application is working by running a debug networking pod (praqma/multitool).  This gives you a 'jumphost' container inside Kubernetes: 
+**2. Debug your App.** Even though your application is isolated within your Kubernetes cluster, without any external access configured, you can still check if the application is working by running a debug networking pod (praqma/multitool).  This gives you a 'jumphost' container inside Kubernetes: 
 <pre>
 kubectl create ns <i>debug</i>
 kubectl run multitool --image=praqma/network-multitool -n <i>debug</i>
@@ -198,7 +198,7 @@ bash-5.0# curl webapp.frontns -v
 * Connected to <b>webapp.frontns</b> (<b>10.1.120.33) port 80</b> (#0)
 </pre>
 
-3. The next step is to expose your application to the outside world.  There are many ways to do this, first and foremost the **port-forward** which is mainly used for troubleshooting, as it is not permanent.
+**3. Expose your App.**  The next step is to expose your application to the outside world.  There are many ways to do this, first and foremost the **port-forward** which is mainly used for troubleshooting, as it is not permanent.
 Port Forwarding can be applied to the Service, Deployment, Pods... it really depends what you want to debug.  In this example, we will expose the Service (remember to check for corresponding flags on CTFD):  
 
 <pre>
@@ -206,7 +206,7 @@ Port Forwarding can be applied to the Service, Deployment, Pods... it really dep
 - curl http://127.0.0.1:5000
 </pre>
 
- - You should access your webapp (v1) web page:
+ - You should now be able to access your webapp (v1) web page:
 
 <p align="center">
 	<img width="100" src="v1/v1_icon.png" alt="V1 logo">
@@ -270,7 +270,7 @@ nginx-stable    https://helm.nginx.com/stable
 </pre>
 
 
-3. Deploy NGINX using Helm.  Now, we are going to deploy the NGINX Plus Ingress and all of the required components in a single command:
+**3. Deploy NGINX Ingress Controller using Helm.**  Now, we are going to deploy the NGINX Plus Ingress and all of the required components in a single, multi-line command:
 <pre>
 helm install nginx-ingress nginx-stable/nginx-ingress \
 --namespace <b>ingress</b> \
@@ -287,15 +287,10 @@ helm install nginx-ingress nginx-stable/nginx-ingress \
 --set controller.ingressClass=<b>ingressclass1</b>
 </pre>
 
-### Ingress Resource
-3. Now that you have installed the Ingress Controller into the **ingress** namespace, you can move on to deploy the Ingress Resources.  Ingress Resources must be deployed into the application namespaces.
 
-Next step is creating an Ingress Resource to access your application.
-You can inspire from the example on the official [NGINX INC Github Repository](https://github.com/nginxinc/kubernetes-ingress/tree/master/examples-of-custom-resources/basic-configuration)
+**4. Create Ingress Resource.**. Now that you have installed the Ingress Controller into the **ingress** namespace, you can move on to deploy the Ingress Resource to access your application.  Ingress Resources must be deployed into the application namespaces.  For reference, there is a great example on the official [NGINX INC Github Repository](https://github.com/nginxinc/kubernetes-ingress/tree/master/examples-of-custom-resources/basic-configuration)
 
-
-### Access the v1 web application
-In the web application namespace (frontns), we should now deploy the Ingress Resource matching the Ingress Class specified when we deployed the Ingress Controller:
+ - In the web application namespace (frontns), you should now deploy the Ingress Resource matching the Ingress Class specified when you deployed the Ingress Controller:
  
 <pre>
 apiVersion: k8s.nginx.org/v1
@@ -316,9 +311,12 @@ spec:
         upstream: v1
 </pre>
 
-you can now access your v1 application using your web browser at http://www.mycompany.com:30274
+ - You should now be able to access your v1 application using your web browser at http://www.mycompany.com:30274
+
 Note:
 <i>if you are using the UDF blueprint, the www.mycompany.com:30274 fqdn should already be registered in the jumpHost hosts file.</i>
+
+> :warning: Ingress is a 'shared' model, and it is therefore expected to provide access to many applications.  The Ingress Resource 'spec' you deployed instructs NGINX to use the Host header 'www.mycompany.com' to identify requests for your application requests and steers them to your webapp containers.  This means that any request to the Ingress must include the correct Host Header.  
 
 ---
 
