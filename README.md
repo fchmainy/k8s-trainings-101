@@ -1,6 +1,6 @@
 # K8S 101 Challenge
 
-This is a series of hands-on exercices that will help you get into Kubernetes and start working on NGINX Ingress Controller.
+This is a series of hands-on exercices that will help you get into Kubernetes (known by the shorthand 'k8s') and start working on NGINX Ingress Controller.
 
 ## Capture the Flag
 Of course, if there is a challenge, there will be a winner (I did not mention anything about a price though)!
@@ -224,29 +224,28 @@ Note:
 
 ## Lab4 - Publish your application with Ingress
 ### Description
-	- Deploy an Ingress Resource to access the (v1) application
+> The goal of this lab is to create an Ingress Resource to access the webapp (v1) application.  Before we can do this, we need to install NGINX Ingress Controller into our Kubernetes cluster.
 
-In a real life the testing, validation, building and release should be automated as part of a CI/CD pipeline. We are gogoing to manually detail part of this process to understand the advanced routing capabilities of our NGINX Ingress services in delivering applications.
+In the real world, the testing, validation, building and release of an application _should_ be automated as part of a CI/CD pipeline. We are going to manually step through part of this process, to understand the advanced routing capabilities of our NGINX Ingress services in delivering applications that are deployed into Kubernetes.
 
-### Install NGINX Ingress Controller
-To access your kubernetes services from the outside world, the common way is to use an Ingress service.
+### Lab4 Tasks:
 
-:warning The Ingress Controller has to be deployed in any namespace disctinct from the application services. The Ingress Resources are however deployed in the app services namespaces.
+The most common method used to access Kubernetes services from the outside world, is deployment of an Ingress resource.  To do this, we first need to install an Ingress Controller.  There are many options for Ingress Controller, but we will use NGINX for this lab.
 
-**TASKS** (check corresponding flags on CTFD):
-Using the instructor private registry deployment token username and password, you should create a new namespace called **"ingress"**, create a docker-registry secret and deploy into the ingress namespace the following container image:
+:warning The Ingress _Resources_ must be deployed into the application namespaces (e.g. frontns).  The Ingress _Controller_ however, must NOT be installed into the application namespaces, it should be installed into it's own namespace (e.g. ingress).
+
+1. Get the NGINX image.  Using the instructor private registry deployment token username and password, you should create a new namespace called **"ingress"**, create a docker-registry secret and deploy into the ingress namespace the following container image:
 <pre>
 	<b>registry.gitlab.com/f.chmainy/nginx:v1.10.0</b>
 </pre>
 
 
-There are multiple ways we can install the NGINX Kubernetes Ingress Controller:
-- [using manifests](https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-manifests/)
-- [using helm](https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-helm/)
-- [using operator](https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-operator/)
+2. There are multiple ways we can install the NGINX Kubernetes Ingress Controller:
+ - [using manifests](https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-manifests/)
+ - [using helm](https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-helm/)
+ - [using operator](https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-operator/)
 
-here we will use the helm deployment mode as it is the simpler way to install all the components (Service Accounts, CRDs,...).
-Please type the following commands to install the latest nginx ingress helm chart.
+   Here we will use the Helm deployment mode, as it is the simplest way to install _all_ the components (Service Accounts, CRDs, etc.) required for a complex deployment.  Please type the following commands to install the latest NGINX Ingress Helm chart.
 
 <pre>
 <b>helm repo list</b>
