@@ -470,23 +470,20 @@ For reference, there are many examnples of advanced routing here: https://github
 
 ## Optional Lab6 - East-West or Microservice-to-Microservice traffic
 ### Description
-	- Deploy backend service
-	- access your application and capture the flag!!!
+> The goal of this lab is to deploy the backend service, and then access your application to capture the flag!!!
 
-### Deploy the backend service
-The backend is a very basic JSON RESTFUL API service that delivers an UUID based on a cookie provided by the frontend.
-
-**TASKS** (check corresponding flags on CTFD) 
-- create a new namespace called <b>backendns</b> where the backend pod will reside.
-- build the container image from the provided Dockerfile and push it to your private container registry.
-- deploy the new application service (service + deployment) to the backendns namespace.
+### Tasks:
+**1. Deploy the Back-End.**  The backend is a very basic JSON RESTFUL API service that delivers an UUID based on a cookie provided by the frontend.
+ - create a new namespace called <b>backendns</b> where the backend pod will reside.
+ - build the container image from the provided Dockerfile and push it to your private container registry.
+ - deploy the new application service (service + deployment) to the backendns namespace.
 
 
-### Check the application
-Access the v2 application and try accessing the application by inserting a cookie in your web browser:
+**2. Check the application.** Access the v2 application and try accessing the application by inserting a cookie in your web browser:
 <pre>
 document.cookie="flag6=COOKIE_VALUE8; expires=Mon, 2 Aug 2021 20:20:20 UTC; path=/";
 </pre>
 
-you will find the CTF flag in the response page.
- ... Then you win!!!
+You will find the CTF flag in the response page.
+
+ **... Then you win!!!**
