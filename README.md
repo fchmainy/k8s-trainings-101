@@ -322,12 +322,24 @@ Note:
 
 ## Optional Lab5 - Deploy a new version of the app and manage versioning with Ingress
 ### Description
-	- Deploy the version 2 (v2) of the web application
-	- Deployment Strategies (Canary Realease, A/B Testing...)
+> The goal of this lab is to deploy version 2 (v2) of the web application.  You will use two different deployment Strategies:
+>  - Canary Realease
+>  - A/B Testing
 
-### Build and deploy the version 2 of your application
-A new version of our application has been developed and ready to be released. 
-First, build and push the v2 front container image into your private container image registry.
+### Lab5 Tasks:
+
+There are multiple strategies to choose when releasing a new application version:
+- A/B Testing
+- Canary Testing
+- Blue/Green
+
+They are all variations on the same theme, which is to test the new version of the application, with a subset of users, and continue to send all other users to the oiriginal version.  The aim is to minimise the risk of testing the new version of the application, by only exposing a small number of users to it.
+
+The decision on which strategy to employ comes down to what you want to achieve and who/what is testing the application.  For reference, you can find some external documentation on this subject here: https://docs.flagger.app/usage/deployment-strategies
+
+**1. Build and deploy the version 2 (v2) of your application.** A new version of your application has been developed and is ready to be released. 
+
+ - First, you must build and push the v2 front container image into your private container image registry.
 <pre>
 <b>
 cd ../v2/front/
@@ -336,7 +348,7 @@ docker push registry.gitlab.com/f.chmainy/toremove/webapp:v2
 </b>
 </pre>
 
-Then, you can use the kubernetes manifest of the application to deploy the Ingress Resource.
+ - Then, you can use the kubernetes manifest of the application to deploy the Ingress Resource.
 <pre>
 <b>kubectl apply -f v2/front/v2_webapp_k8s_manifest.yaml -n frontns</b>
 service/webappi-v2-svc configured
@@ -347,7 +359,7 @@ deployment.apps/webapp-v2-dep configured
         <img width="100" src="v2/front/src/v2_icon.png" alt="V2 logo">
 </p>
 
-Note: In a large scale cluster, you probably won't have a clear mapping of services names, deployments, endpoints and pods, this is why labels could be very useful:
+   Note: In a large scale cluster, you probably won't have a clear mapping of services names, deployments, endpoints and pods, this is why labels could be very useful:
 
 <pre>
 <b>kubectl get svc --all-namespaces -l application=k8s101,version=v1,tier=front</b>
@@ -360,21 +372,12 @@ frontns     webappi-v2-svc   ClusterIP   10.110.131.55   <none>        80/TCP   
 </pre>
 
 
-There are multiple strategies to choose when releasing a new application version:
-- A/B Testing
-- Canary Testing
-- Blue/Green
-
-some external documentation: https://docs.flagger.app/usage/deployment-strategies
 
 
-It comes down to what do you want to achieve, who/what is testing the application?...
-You have multiple example you can inspire from at: https://github.com/nginxinc/kubernetes-ingress/tree/master/examples-of-custom-resources
 
+**2. Configure Ingress with A/B Testing.** Here, we want to split part of the traffic (%) to the new version so we can validate and measure the proper function of the new version without impacting too many customers if there were any issues with the code.
 
-#### A/B Testing
-Here, we want to split part of the traffic (%) to the new version so we can validate and measure the proper functioning of the new version without impacting too many customers if there were any issue in the code.
-Here we are doing a 80% to v1 and 20% to v2, in real life the cursor would be progressively moving out to v2 until final approval.
+ - Here we are doing a 80% to v1 and 20% to v2, in real life the cursor would be progressively moving out to v2 until final approval.
 
 [link to documentation](https://docs.nginx.com/nginx-ingress-controller/configuration/virtualserver-and-virtualserverroute-resources/#split)
 
@@ -404,8 +407,7 @@ spec:
         pass: v2
 </pre>
 
-#### Canary testing
-In this scenario, we are directing traffic to the new version only for specific key users (devs, test users...) by steering only if a specific header or cookie is provided.
+**3. Configure Ingress with Canary testing.**  In this scenario, we are only steering specific key users (dev, test users, for example) to the new version of the application, by detecting the presence of a specific header or cookie.
 
 [link to documentation](https://docs.nginx.com/nginx-ingress-controller/configuration/virtualserver-and-virtualserverroute-resources/#match)
 
@@ -436,12 +438,12 @@ spec:
       pass: v1
 </pre>
 
-Using chrome and go to the Developer tools / Console, you can inject the required cookie:
+ - Using chrome and go to the Developer tools / Console, you can inject the required cookie:
 <pre>
 document.cookie="flag6=COOKIE_VALUE6; expires=Mon, 2 Aug 2021 20:20:20 UTC; path=/";
 </pre>
 
-Now we can redirect the whole Ingress traffic to the v2 frontend, remove the v1 webapp Ingress rules and remove the application:
+ - Now we can redirect the whole Ingress traffic to the v2 frontend, remove the v1 webapp Ingress rules and remove the v1 application:
 <pre>
 apiVersion: k8s.nginx.org/v1
 kind: VirtualServer
@@ -462,7 +464,7 @@ spec:
 </pre>
 
 Note:
-You have multiple example you can inspire for advanced routing from at: https://github.com/nginxinc/kubernetes-ingress/tree/master/examples-of-custom-resources
+For reference, there are many examnples of advanced routing here: https://github.com/nginxinc/kubernetes-ingress/tree/master/examples-of-custom-resources
 
 ---
 
