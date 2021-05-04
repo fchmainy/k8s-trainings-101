@@ -322,13 +322,13 @@ Note:
 
 ## Optional Lab5 - Deploy a new version of the app and manage versioning with Ingress
 ### Description
-> The goal of this lab is to deploy version 2 (v2) of the web application.  You will use two different deployment Strategies:
+> The goal of this lab is to deploy version 2 (v2) of the web application, and then configure Ingress to provide access to it.  You will use two different deployment Strategies:
 >  - Canary Realease
 >  - A/B Testing
 
 ### Lab5 Tasks:
 
-There are multiple strategies to choose when releasing a new application version:
+There are multiple deployment strategies to choose, when releasing a new application version:
 - A/B Testing
 - Canary Testing
 - Blue/Green
@@ -377,7 +377,7 @@ frontns     webappi-v2-svc   ClusterIP   10.110.131.55   <none>        80/TCP   
 
 **2. Configure Ingress with A/B Testing.** Here, we want to split part of the traffic (%) to the new version so we can validate and measure the proper function of the new version without impacting too many customers if there were any issues with the code.
 
- - Here we are doing a 80% to v1 and 20% to v2, in real life the cursor would be progressively moving out to v2 until final approval.
+ - Here we are doing a 80% to v1 and 20% to v2, in real life the cursor would be progressively moving out to v2 until final approval.  Deploy an updated A/B Ingress Resource:
 
 [link to documentation](https://docs.nginx.com/nginx-ingress-controller/configuration/virtualserver-and-virtualserverroute-resources/#split)
 
@@ -407,7 +407,7 @@ spec:
         pass: v2
 </pre>
 
-**3. Configure Ingress with Canary testing.**  In this scenario, we are only steering specific key users (dev, test users, for example) to the new version of the application, by detecting the presence of a specific header or cookie.
+**3. Configure Ingress with Canary testing.**  In this scenario, we are only steering specific key users (dev, test users, for example) to the new version of the application, by detecting the presence of a specific header or cookie.  Deploy an updated Canary Ingress Resource:
 
 [link to documentation](https://docs.nginx.com/nginx-ingress-controller/configuration/virtualserver-and-virtualserverroute-resources/#match)
 
