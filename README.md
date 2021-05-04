@@ -1,23 +1,23 @@
 # K8S 101 Challenge
 
-This is a series of exercices and hands on in order to get into Kubernetes and start working on NGINX Ingress Controller.
+This is a series of hands-on exercices that will help you get into Kubernetes and start working on NGINX Ingress Controller.
 
 ## Capture the Flag
 Of course, if there is a challenge, there will be a winner (I did not mention anything about a price though)!
-Please go create a user account on [Capture the K8S Flag](http://ctfd.f5demolab.org) and start playing.
+Please go and create a user account on [Capture the K8S Flag](http://ctfd.f5demolab.org) and start playing.
 
-But we will never leave you alone:
+Don't worry, you are not alone:
 - cheat-sheet: https://github.com/fchmainy/k8s-trainings-101/raw/main/doc/k8s-101-cheatsheet.pdf
 - flow diagram: https://github.com/fchmainy/k8s-trainings-101/raw/main/doc/tshoot%20k8s%20pod%20deployment.pdf
 
-For every lab you will find a series of questions that will give you coins. You can ask for hints in exchange of some coins.
+For every lab you will find a series of questions that will reward you with points for the correct answer. You can ask for hints, but this will cost you points!
 
-Table of content:
+Table of Contents:
 
-    Lab0 - Getting familiar with Docker Engine and build your first application
-    Lab1 - Getting familiar with yrou k8S Cluster
+    Lab0 - Get familiar with Docker Engine and build your first application
+    Lab1 - Get familiar with your k8S Cluster
     Lab2 - Deploy your first application
-    Lab3 - Make application accessible from outside
+    Lab3 - Make your application accessible from the outside
     Lab4 - Publish your application with Ingress
     Optional Lab5 - Deploy a new version of the app and manage versioning with Ingress
     Optional Lab6 - East-West or Microservice-to-Microservice traffic
@@ -28,17 +28,17 @@ Table of content:
 Please install on student machines:
 - Docker desktop
 - Helm
-- git command
+- Git CLI
 
  ![docker_desktop_preferences](doc/docker_desktop_preferences_kubernetes.png) 
 > For Docker Desktop, be sure to enable kubernetes inside docker desktop preferences
 
 
-In case a student can't install the pre-req, there is an UDF BP : https://udf.f5.com/b/8c967d89-dcb3-4788-b41c-1e6a066d3ad5#documentation
+In case a student can't install the pre-requisites, there is an UDF BP : https://udf.f5.com/b/8c967d89-dcb3-4788-b41c-1e6a066d3ad5#documentation
 
 ---
 
-## Lab0 - Getting familiar with Docker Engine and build your first application
+## Lab0 - Get familiar with Docker Engine and build your first application
 ### Description
 
 > In this section, we will learn the 3 most important Docker commands in order to build your container image and push this image to your private repository.
@@ -52,38 +52,37 @@ In case a student can't install the pre-req, there is an UDF BP : https://udf.f5
     docker push
     basic git commands
 
-### Tasks
-If you don't have a _gitlab.com_ (free) account, please create one. We will use it as a Source Code Management but mostly here as a private container registry.
-When you are done:
- - create a new project
- - create a new Deployment token Username and Password (Settings > Repository > Deploy Tokens). Keep them safely, we will use them along the whole labs.
- - Go to container registry (Package & Registry > Container Registry)
-Gitlab is giving you the commands to make docker logged in into your registry along with the 2 needed commands to build and push your container image into your registry. We will use them very soon
+### Lab0 Tasks
 
+1. If you don't have a _gitlab.com_ (free) account, please create one (if you have a _github.com_ account already, you can use that to login to _gitlab.com_). We will use _gitlab.com_ as a Source Code Management tool, but mostly, as a private container registry.  Once your account is created:
+  - create a new project
+  - create a new Deployment token Username and Password (the screen shots below show the steps). Keep the credentials safe, because we will use them in the remaining labs:
 
--------
+ -------
+Go to _repositories_ > _Deploy tokens_:
 ![DeployTokenSettings](doc/Deploy_Tokens_Settings.png)
 -------
+Input your parameters:
 ![DeployTokenRW](doc/DeployTokenRBACs.png)
 -------
+Get your credentials:
 ![DeployTokenTokenUserPass](doc/Deploy_Token_password.png)
 -------
-&nbsp;<br>
+ &nbsp;<br>
+
+  - go to container registry (Package & Registry > Container Registry).  Gitlab outputs the commands that allow docker to _login_ to your registry, along with the two needed commands to build and push your container image _into_ your registry.  We will use these commands shortly.  For example, your _login_ command will look something like this:
 
 <pre>
 docker login <i>registry.gitlab.com</i> -u <i>yourDeployTokenUsername</i>
 </pre>
  
-Now, let's download the application code:
-
-make sure your append a correct tag and version at the end of the build and push commands Gitlab gave you previously.
+ - Now, let's download the application code.  Then build the container image and push _your_ new image to _your_ repository.  Make sure you modify the two _docker_ command examples provided below, to reference your repo, and to append the correct tag and version at the end of them.  Gitlab output these for you previously.
 <pre>
 git clone https://github.com/fchmainy/k8s-trainings-101.git
 cd k8s-trainings-101/v1/
-docker build -t registry.gitlab.com<i>/YourRepo</i><b>/webapp:v1</b> .
-docker push registry.gitlab.com<i>/YourRepo</i><b>/webapp:v1</b>
+docker build -t registry.gitlab.com<i><b>/YourRepo</i>/webapp:v1</b> .
+docker push registry.gitlab.com<i><b>/YourRepo</i>/webapp:v1</b>
 </pre>
-
 
 Verify the v1 of the webapp container image is on your registry.
 
@@ -483,4 +482,3 @@ document.cookie="flag6=COOKIE_VALUE8; expires=Mon, 2 Aug 2021 20:20:20 UTC; path
 
 you will find the CTF flag in the response page.
  ... Then you win!!!
-
