@@ -45,7 +45,7 @@ In case a student can't install the pre-requisites, there is an UDF BP : https:/
 > The repository can be a local registry running in your laptop, a github.com registry (public or private), gitlab.com registry or any other that can be accessed
 > from the lab environment.
 
-**Useful commands**:
+### Useful Commands:
 
     docker login [OPTIONS] [SERVER]
     docker build
@@ -88,12 +88,12 @@ docker push registry.gitlab.com<i><b>/YourUser/YourRepo</i>/webapp:v1</b>
 
 ---
 
-## Lab1 - Getting familiar with your K8S Cluster
+## Lab1 - Get familiar with your K8S Cluster
 ### Description
 
 > The goal of this lab is just to gain an understanding of the main components of a K8S Clutser such as node types, basic networking, the meaning and relationship between Services, Endpoints and Pods.  Use the following commands to output information about your k8s cluster.
 
-**Useful commands**:
+### Useful Commands:
 
     kubectl cluster-info
     kubectl get nodes
@@ -102,23 +102,19 @@ docker push registry.gitlab.com<i><b>/YourUser/YourRepo</i>/webapp:v1</b>
     kubectl get endpoints -n *namespace*
     kubectl get pods -n *namespace*
 
+### Lab1 Tasks:
+
+Just poke around using the commands above, to understand how the various constructs and components relate to eachother.
+
+> :warning: Don't forget to check [CTFD](http://ctfd.f5demolab.org) to see if there are any challenges and questions for this section.
+
 ---
 
 ## Lab2 - Deploy your first application
 ### Description
-> In this lab, you will deploy your application.
+> The goal of this lab, is to create a namespace (check k8s documentation for more details on namespaces), store your credentials safely and deploy your application container image into Kubernetes.
 
-We have prepared an example YAML template file for the Kubernetes deployment manifest, in order to help you create the service and the deployment. Please modify the example so that it matches your requirements.
-
-Now you can deploy your application into your kubernetes cluster (check the following challenges in CTFD):
-**TASKS:** (check corresponding flags in the CTFD):
-- create a namespace called **frontns**
-- create a docker-registry kubernetes secret on registry.gitlab.com using your deploy tokens.
-- deploy the v1_webapp_k8s_manifest.yaml in your **frontns** namespace (verify the manifest file content so it matches your environment).
-
-> :warning: Don't forget to check [CTFD](http://ctfd.f5demolab.org) to see if there are any challenges and questions for this section.
-
-### Useful commands
+### Useful Commands:
 
 <pre>
 kubectl create ns
@@ -126,19 +122,37 @@ kubectl create secret
 kubectl apply
 </pre>
 
----
+### Lab2 Tasks:
 
+1. We have prepared an example YAML template file for the Kubernetes deployment manifest, in order to help you create the service and the deployment. Please remember to modify the example so that it matches your requirements.
+2. Now you can deploy your application into your kubernetes cluster:
+
+ - create a namespace called **frontns**
+ - create a docker-registry kubernetes secret on registry.gitlab.com using your deploy tokens.
+ - deploy the v1_webapp_k8s_manifest.yaml in your **frontns** namespace (verify the manifest file content so it matches your environment).
+
+> :warning: Don't forget to check [CTFD](http://ctfd.f5demolab.org) to see if there are any challenges and questions for this section.
+
+---
 
 ## Lab3 - Make application accessible from outside
 ### Description:
-	- Look into your app
-	- Expose your application
-	- Find the instructor container registry Deploy Token Username and Password
-	- Deploy the ingress controller and create the Ingress Resource
+> The goal of this lab is to: 
+> - Understand how your application works
+> - Understand how to see the application output, while it is still isolated insde Kubernetes.
+> - Expose your application to the outside.
+> - Find the instructor container registry Deploy Token Username and Password, to gain access to the NGINX image, stored in the instructor private registry.
+> - Deploy the NGINX Ingress Controller and create the Ingress Resource.
 
+### Useful Commands:
 
-### Tasks
-Understand how your application works:
+<pre>
+kubectl port-forward 
+</pre>
+
+### Lab3 Tasks:
+
+1. Understand how your application works:
 
 <pre>
 ❯ kubectl get svc -n frontns -l tier=front -l version=v1
@@ -173,7 +187,7 @@ webapp-7dd5ff6788-t8xdt   1/1     Running   0          11m  <span style="color:b
 
 ![svc-ep-pods](doc/svc-ep-pods_webapp_v1.png)
 
-You can check how it works by running a debug networking pod (praqma/multitool)
+2. Even though your application is isolated within your Kubernetes cluster, without any external access configured, you can still check if the application is working by running a debug networking pod (praqma/multitool).  This gives you a 'jumphost' container inside Kubernetes: 
 <pre>
 kubectl create ns <i>debug</i>
 kubectl run multitool --image=praqma/network-multitool -n <i>debug</i>
@@ -184,31 +198,27 @@ bash-5.0# curl webapp.frontns -v
 * Connected to <b>webapp.frontns</b> (<b>10.1.120.33) port 80</b> (#0)
 </pre>
 
-There are many ways to make your application accessible from the outside, first and foremost the **port-forward** which is mostly used for troubleshooting as it is not permanent.
-Port Forwarding can be applied on the service, deployment, pods... it really depends what you want to debug:
+3. The next step is to expose your application to the outside world.  There are many ways to do this, first and foremost the **port-forward** which is mainly used for troubleshooting, as it is not permanent.
+Port Forwarding can be applied to the Service, Deployment, Pods... it really depends what you want to debug.  In this example, we will expose the Service (remember to check for corresponding flags on CTFD):  
 
-**TASKS:** (check corresponding flags on CTFD):
+<pre>
 - create a port-forward to your **webapp deployment** redirecting TCP port 5000 to TCP/80.
 - curl http://127.0.0.1:5000
+</pre>
 
-You should access the webapp (v1) web page:
+   You should access your webapp (v1) web page:
 
 <p align="center">
 	<img width="100" src="v1/v1_icon.png" alt="V1 logo">
 </p>
 
-You will find, on the presented V1 web page, the instructor gitlab Deploy Token Username and Password. Keep it safely, you will need it for the next tasks.
+   You will find, on the presented V1 web page, the instructor gitlab Deploy Token Username and Password. Keep these credentials safe, you will need them in the next lab.
 
 Note:
 <i>You can also expose your application using the expose service object and access your application via a NodePort. This is a permanent change (until you explicitly remove it) so we won't use it here as we prefer using an Ingress service. Expose is presented here: https://kubernetes.io/docs/tutorials/stateless-application/expose-external-ip-address/</i>
 
 > :warning: Don't forget to go check on [CTFD](http://ctfd.f5demolab.org) if there are any challenges and questions for this section
 
-### Useful commands
-
-<pre>
-kubectl port-forward 
-</pre>
 
 ---
 
