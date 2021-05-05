@@ -84,14 +84,14 @@ docker build -t registry.gitlab.com<i><b>/YourUser/YourRepo</i>/webapp:v1</b> .
 docker push registry.gitlab.com<i><b>/YourUser/YourRepo</i>/webapp:v1</b>
 </pre>
 
- - Finally, verify that the webapp container image is in _your_ registry.
+ - Finally, verify that the webapp container image is in _your_ registry. Be sure to not only check the image name, but also the image "tag". If you have not correctly tagged the image, you will not see "v1" but nothing or "latest". In that case, double check how you flagged the image and correct the issue.
 
 ---
 
 ## Lab1 - Get familiar with your K8S Cluster
 ### Description
 
-> The goal of this lab is just to gain an understanding of the main components of a K8S Clutser such as node types, basic networking, the meaning and relationship between Services, Endpoints and Pods.  Use the following commands to output information about your k8s cluster.
+> The goal of this lab is just to gain an understanding of the main components of a K8S Cluster such as node types, basic networking, the meaning and relationship between Services, Endpoints and Pods.  Use the following commands to output information about your k8s cluster.
 
 ### Useful Commands:
 
