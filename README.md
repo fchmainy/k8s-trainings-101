@@ -84,7 +84,7 @@ docker build -t registry.gitlab.com<i><b>/YourUser/YourRepo</i>/webapp:v1</b> .
 docker push registry.gitlab.com<i><b>/YourUser/YourRepo</i>/webapp:v1</b>
 </pre>
 
- - Finally, verify that the webapp container image is in _your_ registry. Be sure to not only check the image name, but also the image "tag". If you have not correctly tagged the image, you will not see "v1" but nothing or "latest". In that case, double check how you flagged the image and correct the issue.
+ - Finally, verify that the webapp container image is in _your_ registry. Be sure to not only check the image name, but also the image "tag". If you have not correctly tagged the image, you will not see "v1" but "nothing" or "latest". In that case, double check how you flagged the image and correct the issue.
 
 ---
 
