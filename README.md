@@ -231,18 +231,12 @@ Note:
 
 ### Lab4 Tasks:
 
-The most common method used to access Kubernetes services from the outside world, is deployment of an Ingress resource.  To do this, we first need to install an Ingress Controller.  There are many options for Ingress Controller, but we will use NGINX for this lab.
+The most common method used to access Kubernetes services from the outside world, is deployment of an Ingress resource.  To do this, we first need to install an Ingress Controller.  We have several options for Ingress Controller, but we will use NGINX for this lab.
 
-> :warning: The Ingress _Resources_ must be deployed into the application namespaces (e.g. frontns).  The Ingress _Controller_ however, must NOT be installed into the application namespaces, it should be installed into it's own namespace (e.g. ingress).
 
-**1. Get NGINX image.**  Using the instructor private registry deployment token username and password, you should create a new namespace called **"ingress"**, create a docker-registry secret and then deploy the NGINX Ingress Controller image: 
+**1. Preparation.**  Using the instructor private registry deployment token username and password: 
  - create a namespace called **ingress**
  - create a docker-registry secret in the **ingress** namespace using the instructor deploy username/password tokens. 
- - deploy the following container image into the ingress namespace:
-
-<pre>
-	<b>registry.gitlab.com/f.chmainy/nginx:v1.10.0</b>
-</pre>
 
 
 **2. Get the Helm Chart for NGINX.**  There are multiple ways we can install the NGINX Kubernetes Ingress Controller:
