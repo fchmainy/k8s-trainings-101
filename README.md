@@ -191,7 +191,7 @@ webapp-7dd5ff6788-t8xdt   1/1     Running   0          11m  <span style="color:b
 <pre>
 kubectl create ns <i>debug</i>
 kubectl run multitool --image=praqma/network-multitool -n <i>debug</i>
-kubectl exec -it multitool -n <i>debug</i> -- bash
+kubectl exec -it multitool -n <i>debug</i> -- sh
 
 bash-5.0# curl webapp.frontns -v
 *   Trying <b>10.1.120.33:80</b>...
